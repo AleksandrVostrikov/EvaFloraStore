@@ -1,0 +1,50 @@
+﻿using EvaFloraStore.Data;
+using EvaFloraStore.Models;
+using Microsoft.Extensions.Primitives;
+
+namespace EvaFloraStore.Repositories.Db
+{
+    public class EvaStoreRepository : IEvaStoreRepository
+    {
+        private readonly ItemsDbContext _dbContext;
+
+        public EvaStoreRepository(ItemsDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+        public async Task<IQueryable<Product>> GetProductsAsync()
+        {
+            return await Task.FromResult(_dbContext.Products);
+        }
+        public async Task<IQueryable<Category>> GetCategoriesAsync()
+        {
+            return await Task.FromResult(_dbContext.Categories);
+        }
+        public async Task CreateCategoryAsync(Category c)
+        {
+            await _dbContext.Categories.AddAsync(c);
+            await _dbContext.SaveChangesAsync();
+        }
+        public async Task CreateProductAsync(Product p)
+        {
+            await _dbContext.Products.AddAsync(p);
+            await _dbContext.SaveChangesAsync();
+        }
+        public async Task DeleteCategoryAsync(Category c)
+        {
+            _dbContext.Categories.Remove(c);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteProductAsync(Product p)
+        {
+            _dbContext.Products.Remove(p);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task SaveAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+    }
+}
