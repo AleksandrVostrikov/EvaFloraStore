@@ -1,4 +1,6 @@
 ﻿using EvaFloraStore.Models;
+using EvaFloraStore.Models.ViewModels;
+using EvaFloraStore.Repositories.Db;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,16 +8,20 @@ namespace EvaFloraStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IEvaStoreRepository _evaStoreRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController( IEvaStoreRepository evaStoreRepository)
         {
-            _logger = logger;
+            _evaStoreRepository = evaStoreRepository;
         }
+       
 
-        public IActionResult Index()
+        public  async Task<IActionResult> Index()
         {
-            return View();
+            return View(new ProductListViewModel
+            {
+                Products = await _evaStoreRepository.GetProductsAsync()
+            });
         }
 
         public IActionResult Privacy()
