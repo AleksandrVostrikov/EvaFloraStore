@@ -31,7 +31,8 @@ namespace EvaFloraStore.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric(8,2)", nullable: false)
+                    Price = table.Column<decimal>(type: "numeric(8,2)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

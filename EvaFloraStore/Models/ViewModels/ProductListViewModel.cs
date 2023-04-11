@@ -2,6 +2,7 @@
 {
     public class ProductListViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
+        public List<ProductViewModel> Products { get; set; } = new();
+        public int ProductsCount { get; set; }
     }
 }

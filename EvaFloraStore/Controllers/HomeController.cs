@@ -3,6 +3,7 @@ using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Linq;
 
 namespace EvaFloraStore.Controllers
 {
@@ -14,14 +15,17 @@ namespace EvaFloraStore.Controllers
         {
             _evaStoreRepository = evaStoreRepository;
         }
-       
 
         public  async Task<IActionResult> Index()
         {
-            return View(new ProductListViewModel
+            var items = (await _evaStoreRepository.GetProductsAsync()).OrderBy(p => p.Name).ToList();
+            ProductListViewModel productListViewModel = new();
+            productListViewModel.Products = items.Select((item, index) => new ProductViewModel
             {
-                Products = await _evaStoreRepository.GetProductsAsync()
-            });
+                DispalyedProduct = item,
+                PositionInList = index
+            }).ToList();
+            return View(productListViewModel);
         }
 
         public IActionResult Privacy()

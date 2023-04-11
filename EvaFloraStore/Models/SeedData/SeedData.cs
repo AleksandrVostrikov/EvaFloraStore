@@ -58,6 +58,13 @@ namespace EvaFloraStore.Models.SeedData
                 },
                 new Product
                 {
+                    Name = "Перга, 500 гр",
+                    Description = "Перга",
+                    Category = context.Categories.FirstOrDefault(x => x.Name == "Продукты пчеловодства"),
+                    Price = 1000M,
+                },
+                new Product
+                {
                     Name = "Забрус, 300 гр",
                     Description = "Забрус",
                     Category = context.Categories.FirstOrDefault(x => x.Name == "Продукты пчеловодства"),

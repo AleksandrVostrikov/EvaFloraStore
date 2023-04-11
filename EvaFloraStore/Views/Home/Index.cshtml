@@ -4,9 +4,15 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div>
+<div class="row"> 
     @foreach (var item in Model.Products)
     {
-        <partial name="ProductSummary" model="item" />
+        <div class="col-md-5">
+            <partial name="ProductSummary" model="item.DispalyedProduct" />
+        </div>
+        @if (item.PositionInList % 2 != 0 && item.PositionInList != Model.ProductsCount)
+        {
+            <div class="w-100 mt-3"></div>
+        }
     }
 </div>

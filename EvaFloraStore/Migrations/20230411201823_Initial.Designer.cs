@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EvaFloraStore.Migrations
 {
     [DbContext(typeof(ItemsDbContext))]
-    [Migration("20230407202401_Initial")]
+    [Migration("20230411201823_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -51,6 +51,9 @@ namespace EvaFloraStore.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")

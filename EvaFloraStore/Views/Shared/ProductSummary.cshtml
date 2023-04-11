@@ -2,26 +2,27 @@
 @{
 }
 
-<div class="card mb-3" style="width: 25rem;">
-    <div class="card-body bg-light">
+<div class="card mb-3 shadow-sm rounded" style="width: 30rem;">
+    <div class="card-img-top">
+        <img src="@Model.ImageUrl" alt="@Model.Name" class="w-100 rounded-top">
+    </div>
+    <div class="card-body">
         <h4 class="card-title">@Model.Name</h4>
-        <span class="badge bg-primary" style="float:right;">
-            <small>@Model.Price.ToString() руб.</small>
-        </span>
-        <div class="card-text">
-            @Model.Description
-            <form id="@Model.Id">
-                @*asp-page="/Cart" method="post" asp-action="Index" asp-controller="Home">*@
-                <input type="hidden" asp-for="Id" />
-                <input type="hidden" name="returnUrl"
-                       value="/Index" /> @*"@ViewContext.HttpContext.Request.PathAndQuery()"*@
-                <span class="card-text p-1">
-                    <button type="submit"
-                            class="btn btn-success btn-sm mt-3" style="float:right">
-                        В корзину
-                    </button>
+        <p class="card-text">@Model.Description</p>
+        <div class="row">
+            <div class="col-6">
+                <span class="badge bg-primary">
+                    <small>@Model.Price.ToString() руб.</small>
                 </span>
-            </form>
+            </div>
+            <div class="col-6">
+                <form id="@Model.Id">
+                    @*asp-page="/Cart" method="post" asp-action="Index" asp-controller="Home">*@
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" name="returnUrl" value="/Index" /> @*"@ViewContext.HttpContext.Request.PathAndQuery()"*@
+                    <button type="submit" class="btn btn-dark btn-sm float-end mt-3">В корзину</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

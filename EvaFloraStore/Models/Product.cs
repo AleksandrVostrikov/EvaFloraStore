@@ -7,13 +7,13 @@ namespace EvaFloraStore.Models
     public class Product
     {
         public Guid Id { get; set; }
-        [Required(ErrorMessage ="Укажите название товара")]
+        [Required(ErrorMessage = "Укажите название товара")]
         public string Name { get; set; }
-        [Required(ErrorMessage ="Добавьте описание товара")]
+        [Required(ErrorMessage = "Добавьте описание товара")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage ="Выберите категорию")]
-        
+        [Required(ErrorMessage = "Выберите категорию")]
+
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
@@ -23,5 +23,7 @@ namespace EvaFloraStore.Models
         [Range(0.01, double.MaxValue, ErrorMessage = "Цена должна быть больше нуля")]
         [Column(TypeName = "decimal(8, 2)")]
         public decimal Price { get; set; }
+
+        public string? ImageUrl { get; set; }
     }
 }
