@@ -2,7 +2,10 @@
 {
     public class ProductListViewModel
     {
-        public List<ProductViewModel> Products { get; set; } = new();
+        public IEnumerable<ProductViewModel> Products { get; set; }
         public int ProductsCount { get; set; }
+
+        public PageDividerViewModel PageDivider { get; set; }
+
     }
 }

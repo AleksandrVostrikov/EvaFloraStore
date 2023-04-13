@@ -29,6 +29,9 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "page",
+    pattern: "{controller=Home}/{action=Index}/Page{productPage:int}");
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 SeedData.EnsurePopulated(app);

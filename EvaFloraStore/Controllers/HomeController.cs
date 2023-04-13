@@ -2,13 +2,17 @@
 using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Drawing.Printing;
 using System.Linq;
 
 namespace EvaFloraStore.Controllers
 {
     public class HomeController : Controller
     {
+        public int PageSize = 4;
+
         private readonly IEvaStoreRepository _evaStoreRepository;
 
         public HomeController( IEvaStoreRepository evaStoreRepository)
@@ -16,15 +20,36 @@ namespace EvaFloraStore.Controllers
             _evaStoreRepository = evaStoreRepository;
         }
 
-        public  async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] string category, [FromQuery] int productPage=1)
         {
-            var items = (await _evaStoreRepository.GetProductsAsync()).OrderBy(p => p.Name).ToList();
-            ProductListViewModel productListViewModel = new();
-            productListViewModel.Products = items.Select((item, index) => new ProductViewModel
+            var allProducts = (await _evaStoreRepository.GetProductsAsync())
+                .Where(p => p.IsVisible == true);
+            var products = allProducts
+                .Where(p => p.Category.Name == category || category == null)
+                .OrderBy(p => p.Name)
+                .Skip((productPage - 1) * PageSize)
+                .Take(PageSize).ToList();
+
+            var productViewModels = products.Select((p, i) => new ProductViewModel
             {
-                DispalyedProduct = item,
-                PositionInList = index
-            }).ToList();
+                DispalyedProduct = p,
+                PositionInList = i
+            });
+            int totalItems = category == null ?
+                    allProducts.Count() : allProducts
+                    .Where(p => p.Category.Name == category).Count();
+            var productListViewModel = new ProductListViewModel
+            {
+                Products = productViewModels,
+                ProductsCount = totalItems
+            };
+            productListViewModel.PageDivider = new()
+            {
+                CurrentPage = productPage,
+                ItemsPerPage = PageSize,
+                Category = category,
+                TotalItems = totalItems
+            };
             return View(productListViewModel);
         }
 

@@ -25,5 +25,7 @@ namespace EvaFloraStore.Models
         public decimal Price { get; set; }
 
         public string? ImageUrl { get; set; }
+
+        public bool IsVisible { get; set; } = true;
     }
 }

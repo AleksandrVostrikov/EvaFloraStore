@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EvaFloraStore.Migrations
 {
     [DbContext(typeof(ItemsDbContext))]
-    [Migration("20230411201823_Initial")]
-    partial class Initial
+    [Migration("20230413202351_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,6 +55,9 @@ namespace EvaFloraStore.Migrations
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
