@@ -6,7 +6,7 @@ namespace EvaFloraStore.Repositories.Db
     {
         Task<IQueryable<Product>> GetProductsAsync();
         Task<IQueryable<Category>> GetCategoriesAsync();
-        Task CreateProductAsync(Product p);
+        Task<Product> GetProductAsync(Guid id);
         Task DeleteProductAsync(Product p);
         Task CreateCategoryAsync(Category c);
         Task DeleteCategoryAsync(Category c);

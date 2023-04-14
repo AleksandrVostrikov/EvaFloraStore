@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EvaFloraStore.Migrations
 {
     [DbContext(typeof(ItemsDbContext))]
-    [Migration("20230413202351_initial")]
-    partial class initial
+    [Migration("20230414195602_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,6 +65,10 @@ namespace EvaFloraStore.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(8, 2)");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

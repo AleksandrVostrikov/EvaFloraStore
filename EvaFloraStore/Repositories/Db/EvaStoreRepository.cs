@@ -1,5 +1,6 @@
 ﻿using EvaFloraStore.Data;
 using EvaFloraStore.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
 
 namespace EvaFloraStore.Repositories.Db
@@ -45,6 +46,13 @@ namespace EvaFloraStore.Repositories.Db
         public async Task SaveAsync()
         {
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Product> GetProductAsync(Guid id)
+        {
+            return await _dbContext.Products
+                .FirstOrDefaultAsync(p => p.Id == id)
+                ?? new Product() { Name = "Нет такого продукта" };
         }
     }
 }

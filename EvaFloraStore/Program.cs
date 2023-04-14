@@ -11,6 +11,8 @@ builder.Services.AddDbContext<ItemsDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("EvaFloraConnectionString")));
 builder.Services.AddScoped<IEvaStoreRepository, EvaStoreRepository>();
 
+builder.Services.AddRazorPages();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,9 +30,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "page",
-    pattern: "{controller=Home}/{action=Index}/Page{productPage:int}");
+app.MapRazorPages();
+
+app.MapControllerRoute("pagedividing",
+"Products/Page{productPage}",
+new { Controller = "Home", action = "Index" });
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

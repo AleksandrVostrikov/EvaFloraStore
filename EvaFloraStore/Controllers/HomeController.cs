@@ -20,7 +20,7 @@ namespace EvaFloraStore.Controllers
             _evaStoreRepository = evaStoreRepository;
         }
 
-        public async Task<IActionResult> Index([FromQuery] string category, [FromQuery] int productPage=1)
+        public async Task<IActionResult> Index(string category,  int productPage=1)
         {
             var allProducts = (await _evaStoreRepository.GetProductsAsync())
                 .Where(p => p.IsVisible == true);
@@ -47,9 +47,9 @@ namespace EvaFloraStore.Controllers
             {
                 CurrentPage = productPage,
                 ItemsPerPage = PageSize,
-                Category = category,
                 TotalItems = totalItems
             };
+
             return View(productListViewModel);
         }
 

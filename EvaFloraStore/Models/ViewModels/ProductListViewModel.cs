@@ -4,6 +4,7 @@
     {
         public IEnumerable<ProductViewModel> Products { get; set; }
         public int ProductsCount { get; set; }
+        public string CurrentCategory { get; set; }
 
         public PageDividerViewModel PageDivider { get; set; }
 

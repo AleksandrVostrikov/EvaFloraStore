@@ -63,6 +63,10 @@ namespace EvaFloraStore.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(8, 2)");
 
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");

@@ -8,7 +8,7 @@
     </div>
     <div class="card-body">
         <h4 class="card-title">@Model.Name</h4>
-        <p class="card-text">@Model.Description</p>
+        <p class="card-text">@Model.ShortDescription</p>
         <div class="row">
             <div class="col-6">
                 <span class="badge bg-primary">
@@ -19,9 +19,16 @@
                 <form id="@Model.Id">
                     @*asp-page="/Cart" method="post" asp-action="Index" asp-controller="Home">*@
                     <input type="hidden" asp-for="Id" />
-                    <input type="hidden" name="returnUrl" value="/Index" /> @*"@ViewContext.HttpContext.Request.PathAndQuery()"*@
+                    <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()"/>
                     <button type="submit" class="btn btn-dark btn-sm float-end mt-3">В корзину</button>
                 </form>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a asp-page="/ProductDetails" asp-route-id="@Model.Id"
+                       asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"
+                       class="btn btn-outline-secondary btn-sm float-end mt-3">Подробнее</a>
+                </div>
             </div>
         </div>
     </div>
