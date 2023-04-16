@@ -30,14 +30,23 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.MapControllerRoute("catpage",
+    "{category}/Page{productPage:int}",
+    new { Controller = "Home", action = "Index" });
+
+app.MapControllerRoute("page", "Page{productPage:int}",
+    new { Controller = "Home", action = "Index" });
+
+app.MapControllerRoute("category", "{category}",
+    new { Controller = "Home", action = "Index" });
 
 app.MapControllerRoute("pagedividing",
-"Products/Page{productPage}",
-new { Controller = "Home", action = "Index" });
+    "Products/Page{productPage}",
+    new { Controller = "Home", action = "Index" });
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
+app.MapDefaultControllerRoute();
+
 SeedData.EnsurePopulated(app);
 app.Run();

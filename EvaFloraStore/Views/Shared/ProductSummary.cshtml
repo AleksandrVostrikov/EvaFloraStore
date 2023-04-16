@@ -25,7 +25,9 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a asp-page="/ProductDetails" asp-route-id="@Model.Id"
+                    <a asp-action="ProductDetails" 
+                       asp-controller="Home" 
+                       asp-route-id="@Model.Id"
                        asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"
                        class="btn btn-outline-secondary btn-sm float-end mt-3">Подробнее</a>
                 </div>
