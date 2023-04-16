@@ -9,4 +9,10 @@
         public PageDividerViewModel PageDivider { get; set; }
 
     }
+
+    public class ProductViewModel
+    {
+        public Product DispalyedProduct { get; set; }
+        public int PositionInList { get; set; }
+    }
 }

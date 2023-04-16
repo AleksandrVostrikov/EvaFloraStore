@@ -27,9 +27,6 @@ namespace EvaFloraStore.Models
         public decimal Price { get; set; }
 
         public string? ImageUrl { get; set; }
-        //[ForeignKey("ImageId")]
-        //public Image Image { get; set; }
-        //public Guid ImageId { get; set; }
 
         public bool IsVisible { get; set; } = true;
     }

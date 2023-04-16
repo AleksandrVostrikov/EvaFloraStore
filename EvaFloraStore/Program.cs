@@ -5,13 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ItemsDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("EvaFloraConnectionString")));
 builder.Services.AddScoped<IEvaStoreRepository, EvaStoreRepository>();
 
 builder.Services.AddRazorPages();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -43,6 +45,7 @@ app.MapControllerRoute("category", "{category}",
 app.MapControllerRoute("pagedividing",
     "Products/Page{productPage}",
     new { Controller = "Home", action = "Index" });
+
 
 
 app.MapRazorPages();
