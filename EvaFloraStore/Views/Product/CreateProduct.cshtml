@@ -1,5 +1,6 @@
 ﻿@model Product
 @{
+    Layout = "_AdminLayout";
 }
 
 <form asp-action="CreateProduct" method="post">
@@ -17,9 +18,23 @@
         <input asp-for="ShortDescription" class="form-control" required />
     </div>
     <div class="mb-3">
-        <label>Категория</label>
-        <input asp-for="Category.Name" class="form-control" required />
+        <label for="category-input">Категория</label>
+        <div class="row">
+            <div class="col-10">
+                <select id="category-select" asp-for="Category.Name" class="form-control" required>
+                    <option value="">Выберите категорию</option>
+                    <option value="Категория 1">Категория 1</option>
+                    <option value="Категория 2">Категория 2</option>
+                    <option value="Категория 3">Категория 3</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <a class="btn btn-primary mb-2"  asp-controller="Product" asp-action="CreateProduct">Добавить</a>
+            </div>
+        </div>
+        
     </div>
+    
     <div class="mb-3">
         <label>Цена</label>
         <input asp-for="Price" class="form-control" required />

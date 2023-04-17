@@ -21,10 +21,8 @@ namespace EvaFloraStore.Controllers
             if (ModelState.IsValid)
             {
                 await _evaStoreRepository.CreateProductAsync(product);
-                
-                return View("Index"); 
             }
-            return View();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
