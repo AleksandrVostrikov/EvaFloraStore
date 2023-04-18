@@ -1,54 +1,79 @@
-﻿@model Product
+﻿@model ProductAdding
 @{
     Layout = "_AdminLayout";
 }
 
 <form asp-action="CreateProduct" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
+    @*<div asp-validation-summary="All" class="text-danger"></div>*@
     <div class="mb-3">
         <label>Название</label>
-        <input asp-for="Name" class="form-control" required />
+        <input asp-for="@Model.Product.Name" class="form-control" required />
     </div>
     <div class="mb-3">
         <label>Описание</label>
-        <input asp-for="Description" class="form-control" required />
+        <input asp-for="@Model.Product.Description" class="form-control" required />
     </div>
     <div class="mb-3">
         <label>Короткое описание</label>
-        <input asp-for="ShortDescription" class="form-control" required />
+        <input asp-for="@Model.Product.ShortDescription" class="form-control" required />
     </div>
     <div class="mb-3">
         <label for="category-input">Категория</label>
         <div class="row">
             <div class="col-10">
-                <select id="category-select" asp-for="Category.Name" class="form-control" required>
-                    <option value="">Выберите категорию</option>
-                    <option value="Категория 1">Категория 1</option>
-                    <option value="Категория 2">Категория 2</option>
-                    <option value="Категория 3">Категория 3</option>
+                <select id="category-select" asp-for="@Model.Product.Category.Name" class="form-control" required onchange="checkOtherOption(this)">
+                    @foreach (var item in Model.Categories)
+                    {
+                        <option value="@item.Name">@item.Name</option>
+                    }
+                    <option value="Другое">Другое</option>
                 </select>
             </div>
-            <div class="col-2">
-                <a class="btn btn-primary mb-2"  asp-controller="Product" asp-action="CreateProduct">Добавить</a>
+            <div id="other-option-container" class="mb-3" style="display: none;">
+                <label for="other-option-input">Введите другое значение</label>
+                <input id="other-option-input" class="form-control" asp-for="@Model.Product.Category.Name"/>
             </div>
+
+            @*<div class="col-2">
+                <a class="btn btn-primary mb-2"  
+                asp-controller="Product" 
+                asp-action="CreateProduct"
+                asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">Добавить</a>
+            </div>*@
         </div>
         
     </div>
     
     <div class="mb-3">
         <label>Цена</label>
-        <input asp-for="Price" class="form-control" required />
+        <input asp-for="@Model.Product.Price" class="form-control" required />
     </div>
     <div class="mb-3">
         <label>Изображение</label>
-        <input asp-for="ImageUrl" class="form-control" required />
+        <input asp-for="@Model.Product.ImageUrl" class="form-control" required />
     </div>
 
     <div class="form-check">
-        <input asp-for="IsVisible" /> Активен
+        <input asp-for="@Model.Product.IsVisible" /> Активен
     </div>
 
     <div class="text-center">
         <input class="btn btn-primary" type="submit" value="Сохранить" />
     </div>
 </form>
+
+<script>
+    function checkOtherOption(select) {
+        var otherOption = "Другое";
+        var otherOptionContainer = document.getElementById("other-option-container");
+        var otherOptionInput = document.getElementById("other-option-input");
+
+        if (select.value === otherOption) {
+            otherOptionContainer.style.display = "block";
+            otherOptionInput.required = true;
+        } else {
+            otherOptionContainer.style.display = "none";
+            otherOptionInput.required = false;
+        }
+    }
+</script>

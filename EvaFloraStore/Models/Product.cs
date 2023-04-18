@@ -18,7 +18,7 @@ namespace EvaFloraStore.Models
         [Required(ErrorMessage = "Выберите категорию")]
 
         [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
         public Guid CategoryId { get; set; }
 
         [Required]
