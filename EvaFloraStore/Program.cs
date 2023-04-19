@@ -1,6 +1,7 @@
 using EvaFloraStore.Data;
 using EvaFloraStore.Models.SeedData;
 using EvaFloraStore.Repositories.Db;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 

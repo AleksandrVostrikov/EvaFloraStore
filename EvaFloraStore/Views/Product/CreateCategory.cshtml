@@ -1,0 +1,41 @@
+﻿@model CategoryAdding
+@{
+    Layout = "_AdminLayout";
+}
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in @Model.Categories)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Name</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<form asp-action="CreateCategory" method="post">
+    @*<div asp-validation-summary="All" class="text-danger"></div>*@
+    <label>Название</label>
+    <div class="row">
+        <div class="col-10">
+            <div class="mb-3">
+                <input asp-for="@Model.Category.Name" class="form-control" required />
+            </div>
+        </div>
+        <div class="col-2">
+            <input class="btn btn-primary" type="submit" value="Сохранить" />
+        </div>
+    </div>
+</form>
+
+<div class="text-start mt-3">
+    <a class="btn btn-dark" href="@Model.ReturnUrl">Назад</a>
+</div>
