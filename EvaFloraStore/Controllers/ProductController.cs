@@ -66,5 +66,13 @@ namespace EvaFloraStore.Controllers
             }
             return RedirectToAction("CreateCategory");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteCategory(Guid id)
+        {
+            var category = await _evaStoreRepository.GetCategoryAsync(id);
+            await _evaStoreRepository.DeleteCategoryAsync(category);
+            return RedirectToAction("CreateCategory");
+        }
     }
 }

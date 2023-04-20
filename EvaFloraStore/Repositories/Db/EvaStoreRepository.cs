@@ -63,5 +63,11 @@ namespace EvaFloraStore.Repositories.Db
                 .FirstOrDefaultAsync(p => p.Id == id)
                 ?? new Product() { Name = "Нет такого продукта" };
         }
+
+        public async Task<Category> GetCategoryAsync(Guid id)
+        {
+            return await _dbContext.Categories
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 }

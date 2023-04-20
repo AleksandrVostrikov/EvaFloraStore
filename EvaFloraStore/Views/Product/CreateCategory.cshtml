@@ -16,7 +16,14 @@
             <tr>
                 <td>@category.Id</td>
                 <td>@category.Name</td>
-
+                <td>
+                    <div>
+                        <form asp-action="DeleteCategory" method="post">
+                            <input type="hidden" name="id" value="@category.Id" />
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить категорию?')">Удалить</button>
+                        </form>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>
