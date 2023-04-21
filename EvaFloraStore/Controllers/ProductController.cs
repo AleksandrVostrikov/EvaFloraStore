@@ -39,7 +39,7 @@ namespace EvaFloraStore.Controllers
                 await _evaStoreRepository.CreateProductAsync(product);
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            return RedirectToAction("CreateProduct"); ;
         }
 
         public async Task<IActionResult> CreateCategory(string returnUrl)
@@ -60,9 +60,18 @@ namespace EvaFloraStore.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CategoryAdding model)
         {
+            
             if (ModelState.IsValid)
             {
-                await _evaStoreRepository.CreateCategoryAsync(model.Category);
+                if (!(await _evaStoreRepository.GetCategoriesAsync()).Any(c => c.Name == model.Category.Name))
+                {
+                    await _evaStoreRepository.CreateCategoryAsync(model.Category);
+                    TempData["SuccessMessage"] = "Категория успешно создана";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Такая категория уже есть";
+                }
             }
             return RedirectToAction("CreateCategory");
         }
@@ -72,6 +81,7 @@ namespace EvaFloraStore.Controllers
         {
             var category = await _evaStoreRepository.GetCategoryAsync(id);
             await _evaStoreRepository.DeleteCategoryAsync(category);
+            TempData["SuccessMessage"] = "Категория успешно удалена";
             return RedirectToAction("CreateCategory");
         }
     }
