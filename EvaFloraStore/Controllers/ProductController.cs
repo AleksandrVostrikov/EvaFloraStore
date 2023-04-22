@@ -23,13 +23,28 @@ namespace EvaFloraStore.Controllers
 
         public async Task<IActionResult> CreateProduct()
         {
-            
+
             return View(new ProductAdding
             {
                 Product = new(),
                 Categories = (await _evaStoreRepository.GetCategoriesAsync()).ToList()
             });
-        }  
+        }
+
+        public async Task<IActionResult> EditProduct(Guid id)
+        {
+            var product = await _evaStoreRepository.GetProductAsync(id);
+            var editingProduct = _mapper.Map<ProductAdding>(product);
+            editingProduct.Categories = (await _evaStoreRepository.GetCategoriesAsync()).ToList();
+            return View(editingProduct);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveProduct(Guid id)
+        {
+            
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateProduct(ProductAdding model)
         {
@@ -40,6 +55,31 @@ namespace EvaFloraStore.Controllers
                 return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("CreateProduct"); ;
+        }
+
+        public async Task<IActionResult> GetProductList(string returnUrl)
+        {
+            if (returnUrl == null)
+            {
+                returnUrl = TempData["ProductReturnUrl"]?.ToString();
+            }
+            TempData["ProductReturnUrl"] = returnUrl;
+            return View(new AdminProductListViewModel
+            {
+                ReturnUrl = returnUrl,
+                Products = (await _evaStoreRepository.GetProductsAsync())
+                .OrderBy(p => p.Name)
+                .ToList()
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteProduct(Guid id)
+        {
+            var product = await _evaStoreRepository.GetProductAsync(id);
+            await _evaStoreRepository.DeleteProductAsync(product);
+            TempData["SuccessMessage"] = "Продукт успено удален";
+            return RedirectToAction("GetProductList");
         }
 
         public async Task<IActionResult> CreateCategory(string returnUrl)

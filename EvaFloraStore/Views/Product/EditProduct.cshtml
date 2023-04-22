@@ -3,8 +3,12 @@
     Layout = "_AdminLayout";
 }
 
-<form asp-action="CreateProduct" method="post">
+<form asp-action="SaveProduct" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label>Id</label>
+        <input asp-for="@Model.Product.Id" class="form-control" readonly />
+    </div>
     <div class="mb-3">
         <label>Название</label>
         <input asp-for="@Model.Product.Name" class="form-control" required />
@@ -36,7 +40,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="mb-3">
         <label>Цена</label>
         <input asp-for="@Model.Product.Price" class="form-control" required />

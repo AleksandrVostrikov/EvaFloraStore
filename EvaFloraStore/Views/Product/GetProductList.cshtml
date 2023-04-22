@@ -1,0 +1,49 @@
+﻿@model AdminProductListViewModel
+@{
+    Layout = "_AdminLayout";
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Короткое описание</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in @Model.Products)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.ShortDescription</td>
+                <td>
+                    <div>
+                        <form asp-action="DeleteProduct" method="post">
+                            <input type="hidden" name="id" value="@product.Id" />
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить продукт?')">Удалить</button>
+                        </form>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <form asp-action="EditProduct" method="post">
+                            <input type="hidden" name="id" value="@product.Id" />
+                            <button type="submit" class="btn btn-primary">Изменить</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+<div>
+    <a class="btn btn-dark" href="@Model.ReturnUrl">Назад</a>
+</div>
