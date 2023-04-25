@@ -12,6 +12,6 @@ namespace EvaFloraStore.Repositories.Db
         Task DeleteProductAsync(Product p);
         Task CreateCategoryAsync(Category c);
         Task DeleteCategoryAsync(Category c);
-        Task SaveAsync();
+        Task SaveAsync(Product p);
     }
 }

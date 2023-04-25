@@ -21,41 +21,44 @@ namespace EvaFloraStore.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> CreateProduct()
-        {
-
-            return View(new ProductAdding
-            {
-                Product = new(),
-                Categories = (await _evaStoreRepository.GetCategoriesAsync()).ToList()
-            });
-        }
-
         public async Task<IActionResult> EditProduct(Guid id)
         {
-            var product = await _evaStoreRepository.GetProductAsync(id);
-            var editingProduct = _mapper.Map<ProductAdding>(product);
-            editingProduct.Categories = (await _evaStoreRepository.GetCategoriesAsync()).ToList();
-            return View(editingProduct);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> SaveProduct(Guid id)
-        {
+            if (id != Guid.Empty)
+            {
+                var product = await _evaStoreRepository.GetProductAsync(id);
+                var editingProduct = _mapper.Map<ProductAdding>(product);
+                editingProduct.Categories = (await _evaStoreRepository.GetCategoriesAsync()).ToList();
+                return View(editingProduct);
+            }
+            else
+            {
+                return View(new ProductAdding
+                {
+                    Product = new(),
+                    Categories = (await _evaStoreRepository.GetCategoriesAsync()).ToList()
+                });
+            }
             
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct(ProductAdding model)
+        public async Task<IActionResult> SaveProduct(ProductAdding model)
         {
             if (ModelState.IsValid)
             {
                 var product = _mapper.Map<Product>(model.Product);
-                await _evaStoreRepository.CreateProductAsync(product);
-                return RedirectToAction("Index", "Home");
+                if (product.Id != Guid.Empty)
+                {
+                    await _evaStoreRepository.SaveAsync(product);
+                }
+                else
+                {
+                    await _evaStoreRepository.CreateProductAsync(product);
+                }
             }
-            return RedirectToAction("CreateProduct"); ;
+            return RedirectToAction("GetProductList");
         }
+        
 
         public async Task<IActionResult> GetProductList(string returnUrl)
         {

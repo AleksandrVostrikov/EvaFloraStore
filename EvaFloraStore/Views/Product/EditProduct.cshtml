@@ -25,7 +25,7 @@
         <label for="category-input">Категория</label>
         <div class="row">
             <div class="col-10">
-                <select id="category-select" asp-for="@Model.Product.Category.Name" class="form-control" required onchange="checkOtherOption(this)">
+                <select id="category-select" asp-for="@Model.Product.Category.Name" class="form-control" required>
                     @foreach (var item in Model.Categories)
                     {
                         <option value="@item.Name">@item.Name</option>

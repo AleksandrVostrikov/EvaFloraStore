@@ -52,8 +52,11 @@ namespace EvaFloraStore.Repositories.Db
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task SaveAsync()
+        public async Task SaveAsync(Product p)
         {
+            var category = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Name == p.Category.Name);
+            p.Category = category;
+            _dbContext.Products.Update(p);
             await _dbContext.SaveChangesAsync();
         }
 
