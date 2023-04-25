@@ -40,6 +40,35 @@ namespace EvaFloraStore.Controllers
             }
             
         }
+        public async Task<IActionResult> GetProductList(string returnUrl)
+        {
+            if (returnUrl == null)
+            {
+                returnUrl = TempData["ProductReturnUrl"]?.ToString();
+            }
+            TempData["ProductReturnUrl"] = returnUrl;
+            return View(new AdminProductListViewModel
+            {
+                ReturnUrl = returnUrl,
+                Products = (await _evaStoreRepository.GetProductsAsync())
+                .OrderBy(p => p.Name)
+                .ToList()
+            });
+        }
+        public async Task<IActionResult> CreateCategory(string returnUrl)
+        {
+            if (returnUrl == null)
+            {
+                returnUrl = TempData["ReturnUrl"]?.ToString();
+            }
+            TempData["returnUrl"] = returnUrl;
+            return View(new CategoryAdding
+            {
+                Category = new(),
+                Categories = (await _evaStoreRepository.GetCategoriesAsync()).ToList(),
+                ReturnUrl= returnUrl
+            });
+        }
 
         [HttpPost]
         public async Task<IActionResult> SaveProduct(ProductAdding model)
@@ -59,23 +88,6 @@ namespace EvaFloraStore.Controllers
             return RedirectToAction("GetProductList");
         }
         
-
-        public async Task<IActionResult> GetProductList(string returnUrl)
-        {
-            if (returnUrl == null)
-            {
-                returnUrl = TempData["ProductReturnUrl"]?.ToString();
-            }
-            TempData["ProductReturnUrl"] = returnUrl;
-            return View(new AdminProductListViewModel
-            {
-                ReturnUrl = returnUrl,
-                Products = (await _evaStoreRepository.GetProductsAsync())
-                .OrderBy(p => p.Name)
-                .ToList()
-            });
-        }
-
         [HttpPost]
         public async Task<IActionResult> DeleteProduct(Guid id)
         {
@@ -83,21 +95,6 @@ namespace EvaFloraStore.Controllers
             await _evaStoreRepository.DeleteProductAsync(product);
             TempData["SuccessMessage"] = "Продукт успено удален";
             return RedirectToAction("GetProductList");
-        }
-
-        public async Task<IActionResult> CreateCategory(string returnUrl)
-        {
-            if (returnUrl == null)
-            {
-                returnUrl = TempData["ReturnUrl"]?.ToString();
-            }
-            TempData["returnUrl"] = returnUrl;
-            return View(new CategoryAdding
-            {
-                Category = new(),
-                Categories = (await _evaStoreRepository.GetCategoriesAsync()).ToList(),
-                ReturnUrl= returnUrl
-            });
         }
         
         [HttpPost]
