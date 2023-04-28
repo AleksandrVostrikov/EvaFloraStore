@@ -2,6 +2,7 @@
 using EvaFloraStore.Models;
 using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
+using EvaFloraStore.Repositories.Image;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
@@ -12,13 +13,16 @@ namespace EvaFloraStore.Controllers
     {
         private readonly IEvaStoreRepository _evaStoreRepository;
         private readonly IMapper _mapper;
+        private readonly IImageController _imageController;
 
         public ProductController(
             IEvaStoreRepository evaStoreRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IImageController imageController)
         {
             _evaStoreRepository = evaStoreRepository;
             _mapper = mapper;
+            _imageController = imageController;
         }
 
         public async Task<IActionResult> EditProduct(Guid id)
@@ -78,20 +82,24 @@ namespace EvaFloraStore.Controllers
                 var product = _mapper.Map<Product>(model.Product);
                 if (product.Id != Guid.Empty)
                 {
+                    product.ImageUrl = _imageController.UpdateImage(product.ImageUrl, model.Image);
                     await _evaStoreRepository.SaveAsync(product);
                 }
                 else
                 {
+                    product.ImageUrl = _imageController.UploadImage(model.Image);
                     await _evaStoreRepository.CreateProductAsync(product);
                 }
             }
+            TempData["SuccessMessage"] = "Продукт успешно создан";
             return RedirectToAction("GetProductList");
         }
-        
+                
         [HttpPost]
         public async Task<IActionResult> DeleteProduct(Guid id)
         {
             var product = await _evaStoreRepository.GetProductAsync(id);
+            _imageController.DeleteImage(product.ImageUrl);
             await _evaStoreRepository.DeleteProductAsync(product);
             TempData["SuccessMessage"] = "Продукт успено удален";
             return RedirectToAction("GetProductList");
@@ -124,5 +132,6 @@ namespace EvaFloraStore.Controllers
             TempData["SuccessMessage"] = "Категория успешно удалена";
             return RedirectToAction("CreateCategory");
         }
+        
     }
 }

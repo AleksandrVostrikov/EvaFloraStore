@@ -8,5 +8,6 @@ namespace EvaFloraStore.Models.ViewModels
         
         [ValidateNever]
         public IEnumerable<Category> Categories { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 using EvaFloraStore.Data;
 using EvaFloraStore.Models.SeedData;
 using EvaFloraStore.Repositories.Db;
+using EvaFloraStore.Repositories.Image;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ItemsDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("EvaFloraConnectionString")));
 builder.Services.AddScoped<IEvaStoreRepository, EvaStoreRepository>();
+builder.Services.AddScoped<IImageController, ImageController>();
 
 builder.Services.AddRazorPages();
 

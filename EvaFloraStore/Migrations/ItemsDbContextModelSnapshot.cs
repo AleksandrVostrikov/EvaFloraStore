@@ -34,27 +34,7 @@ namespace EvaFloraStore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("EvaFloraStore.Models.Image", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Images");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("EvaFloraStore.Models.Product", b =>
@@ -91,18 +71,7 @@ namespace EvaFloraStore.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("EvaFloraStore.Models.Image", b =>
-                {
-                    b.HasOne("EvaFloraStore.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("EvaFloraStore.Models.Product", b =>

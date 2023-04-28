@@ -3,6 +3,7 @@ using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
 using System.Diagnostics;
 using System.Drawing.Printing;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace EvaFloraStore.Controllers
 
         private readonly IEvaStoreRepository _evaStoreRepository;
 
-        public HomeController( IEvaStoreRepository evaStoreRepository)
+        public HomeController( 
+            IEvaStoreRepository evaStoreRepository)
         {
             _evaStoreRepository = evaStoreRepository;
         }
@@ -63,6 +65,7 @@ namespace EvaFloraStore.Controllers
             };
             return View(viewModel);
         }
+
 
         public IActionResult Privacy()
         {
