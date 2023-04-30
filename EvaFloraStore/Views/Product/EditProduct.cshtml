@@ -45,11 +45,16 @@
         <label>Цена</label>
         <input asp-for="@Model.Product.Price" class="form-control" required />
     </div>
+    <div>
+        <input asp-for="@Model.Product.ImageUrl" class="form-control" type="hidden" />
+    </div>
     <div class="mb-3">
         <label>Изображение</label>
-        <input asp-for="@Model.Image" class="form-control" required/>
+        <input asp-for="@Model.Image" class="form-control"/>
     </div>
-
+    <div class="mb-3">
+        <img src="@Url.Content("~/"+Model.Product.ImageUrl)" alt="@Model.Product.Name" style="width:150px"/>
+    </div>
     <div class="form-check">
         <input asp-for="@Model.Product.IsVisible" /> Активен
     </div>

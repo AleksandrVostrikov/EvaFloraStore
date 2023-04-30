@@ -1,5 +1,6 @@
 ﻿using EvaFloraStore.Models;
 using Microsoft.AspNetCore.Hosting;
+using System.Security.Policy;
 
 namespace EvaFloraStore.Repositories.Image
 {
@@ -13,9 +14,13 @@ namespace EvaFloraStore.Repositories.Image
         }
         public void DeleteImage(string imageUrl)
         {
-            if (File.Exists(imageUrl))
+            if (imageUrl != null)
             {
-                File.Delete(imageUrl);
+                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, imageUrl);
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
             }
         }
 
@@ -29,10 +34,12 @@ namespace EvaFloraStore.Repositories.Image
         public string UploadImage(IFormFile image)
         {
             var uniqueFileName = $"{Guid.NewGuid()}_{image.FileName}";
-            var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
-            var filePath = Path.Combine(uploads, uniqueFileName);
-            image.CopyTo(new FileStream(filePath, FileMode.Create));
-            return filePath;
+            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", uniqueFileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                image.CopyTo(stream);
+            }
+            return Path.Combine("uploads", uniqueFileName);
         }
     }
 }
