@@ -32,7 +32,9 @@
                             asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">Продукты</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="">Корзина</a>
+                            <a class="nav-link text-dark" asp-area=""
+                               asp-controller="Cart"
+                               asp-action="GetCart">Корзина</a>
                         </li>
                     </ul>
                 </div>

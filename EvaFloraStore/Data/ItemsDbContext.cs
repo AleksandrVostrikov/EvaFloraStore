@@ -9,7 +9,6 @@ namespace EvaFloraStore.Data
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Image> Images { get; set; }
 
     }
 }

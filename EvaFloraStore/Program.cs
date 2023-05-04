@@ -1,4 +1,5 @@
 using EvaFloraStore.Data;
+using EvaFloraStore.Models;
 using EvaFloraStore.Models.SeedData;
 using EvaFloraStore.Repositories.Db;
 using EvaFloraStore.Repositories.Image;
@@ -17,6 +18,10 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped(SessionCart.GetCart);
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
@@ -31,6 +36,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSession();
 
 app.UseRouting();
 
