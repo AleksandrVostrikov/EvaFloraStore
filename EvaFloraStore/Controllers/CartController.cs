@@ -1,4 +1,5 @@
 ﻿using EvaFloraStore.Models;
+using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,9 +25,25 @@ namespace EvaFloraStore.Controllers
             return Redirect(returnUrl);
         }
 
-        public IActionResult GetCart(/*string returnUrl*/)
+        public IActionResult GetCart(string returnUrl)
         {
-            return View(Cart);
+            if (returnUrl == null)
+            {
+                returnUrl = TempData["CartReturnUrl"]?.ToString();
+            }
+            TempData["CartReturnUrl"] = returnUrl;
+            return View(new CartView
+            {
+                Cart = Cart,
+                ReturnUrl = returnUrl
+            });
+        }
+       
+        public IActionResult RemoveLine(Guid productId)
+        {
+            Cart.RemoveLine(Cart.Lines.First(cl =>
+            cl.Product.Id == productId).Product);
+            return RedirectToAction("GetCart");
         }
     }
 }
