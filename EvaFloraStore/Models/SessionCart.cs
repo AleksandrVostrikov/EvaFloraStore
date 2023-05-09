@@ -34,5 +34,11 @@ namespace EvaFloraStore.Models
             base.Clear();
             Session.SetJson("cart", this);
         }
+
+        public override void ChangeQuantity(Product product, int quantity)
+        {
+            base.ChangeQuantity(product, quantity);
+            Session.SetJson("cart", this);
+        }
     }
 }

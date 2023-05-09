@@ -1,4 +1,6 @@
-﻿namespace EvaFloraStore.Models
+﻿using Microsoft.CodeAnalysis.VisualBasic;
+
+namespace EvaFloraStore.Models
 {
     public class CartLine
     {
@@ -35,6 +37,17 @@
         public decimal ComputeTotalValue() => Lines.Sum(l => l.Quantity * l.Product.Price);
 
         public virtual void Clear() => Lines.Clear();
+
+        public virtual void ChangeQuantity(Product product, int quantity)
+        {
+            CartLine line = Lines
+                .Where(p => p.Product.Id == product.Id)
+                .FirstOrDefault();
+            if (line != null)
+            {
+                line.Quantity = quantity;
+            }
+        }
 
     }
 
