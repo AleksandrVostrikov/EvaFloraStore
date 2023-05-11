@@ -20,7 +20,7 @@
                     <form id="@($"form_{line.Product.Id}")" asp-action="ScriptUpdateCart">
                     <td class="text-center">
                         <input name="productId" class="form-control" value="@line.Product.Id" type="hidden"/>
-                        <input type="number" name="quantity" id="@line.Product.Id" class="form-control" value="@line.Quantity" onkeydown="event.preventDefault()" />
+                        <input type="number" min="1" name="quantity" id="@line.Product.Id" class="form-control" value="@line.Quantity" onkeydown="event.preventDefault()" />
                     </td>
                     </form>
                     <td class="text-start">@line.Product.Name</td>
@@ -48,12 +48,32 @@
 
 <div class="text-center">
     <a class="btn btn-primary me-5" href="@Model.ReturnUrl">Продолжить покупки</a>
-    @*<a class="btn btn-info" asp-action="Checkout" asp-controller="Order">Оформить заказ</a>*@
+    <a class="btn btn-info" asp-action="Checkout" asp-controller="Order">Оформить заказ</a>
 </div>
 
 
 @section Scripts{
-    <script src="~/js/Test.js">
+    <script>
+        window.onload = function () {
+            const quantityInputs = Array.from(document.getElementsByName('quantity'));
+            async function onChange(e) {
+                const inputId = e.target.id;
+                const formElement = document.getElementById(`form_${inputId}`);
+                const formData = new FormData(formElement);
+                const productId = formData.get('productId');
+                const quantity = formData.get('quantity');
+                const params = new URLSearchParams({ productId, quantity });
+                const response = await fetch(new URL(formElement.action + '?' + params));
+                const responseBody = await response.json();
+                const subtotalElement = document.getElementById(`subTotal_${inputId}`);
+                subtotalElement.textContent = responseBody.subtotal;
+                const totalElement = document.getElementById('total');
+                totalElement.textContent = responseBody.total;
+            }
+            for (const input of quantityInputs) {
+                input.addEventListener('change', onChange);
+            }
+        };
     </script>
 }
 

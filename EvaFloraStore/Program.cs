@@ -11,7 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ItemsDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("EvaFloraConnectionString")));
+
 builder.Services.AddScoped<IEvaStoreRepository, EvaStoreRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IImageController, ImageController>();
 
 builder.Services.AddRazorPages();
@@ -55,8 +57,6 @@ app.MapControllerRoute("category", "{category}",
 app.MapControllerRoute("pagedividing",
     "Products/Page{productPage}",
     new { Controller = "Home", action = "Index" });
-
-
 
 app.MapRazorPages();
 app.MapDefaultControllerRoute();

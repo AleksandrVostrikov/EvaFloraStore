@@ -46,20 +46,12 @@ namespace EvaFloraStore.Controllers
             return RedirectToAction("GetCart");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UpdateCart(Guid productId, int quantity)
-        {
-            var product = await _evaStoreRepository.GetProductAsync(productId);
-            Cart.ChangeQuantity(product, quantity);
-            return RedirectToAction("GetCart");
-        }
-
         public async Task<IActionResult> ScriptUpdateCart(Guid productId, int quantity)
         {
             var product = await _evaStoreRepository.GetProductAsync(productId);
             Cart.ChangeQuantity(product, quantity);
-            var total = Cart.ComputeTotalValue().ToString().Replace('.',',');
-            var subtotal = (product.Price * Cart.Lines.First(l => l.Product.Id == productId).Quantity).ToString().Replace('.', ',');
+            var total = Cart.ComputeTotalValue().ToString("N2");
+            var subtotal = (product.Price * Cart.Lines.First(l => l.Product.Id == productId).Quantity).ToString("N2");
             return Json(new { subtotal, total });
         }
     }

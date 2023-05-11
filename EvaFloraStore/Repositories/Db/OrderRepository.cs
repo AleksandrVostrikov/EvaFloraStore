@@ -1,0 +1,32 @@
+﻿using EvaFloraStore.Data;
+using EvaFloraStore.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace EvaFloraStore.Repositories.Db
+{
+    public class OrderRepository : IOrderRepository
+    {
+        private readonly ItemsDbContext _dbContext;
+
+        public OrderRepository(ItemsDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+        public async Task<IQueryable<Order>> GetOrders()
+        {
+            return await Task.FromResult(_dbContext.Orders
+                .Include(o => o.Lines)
+                .ThenInclude(l => l.Product)); 
+        }
+
+        public async Task SaveOrder(Order order)
+        {
+            _dbContext.AttachRange(order.Lines.Select(l => l.Product));
+            if (order.OrderId == Guid.Empty)
+            {
+                await _dbContext.Orders.AddAsync(order);
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+    }
+}

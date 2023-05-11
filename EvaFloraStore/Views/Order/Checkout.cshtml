@@ -1,0 +1,35 @@
+﻿@model Order
+@{
+    <h2>Данные для заказа</h2>
+
+    <form asp-action="Checkout" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="mb-3">
+            <label>ФИО</label>
+            <input asp-for="Name" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label>Область/Край</label>
+            <input asp-for="Region" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label>Адрес</label>
+            <input asp-for="Adress" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label>Индекс</label>
+            <input asp-for="ZIP" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label>Email</label>
+            <input asp-for="Email" type="email" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label>Телефон</label>
+            <input asp-for="Phone" class="form-control" required />
+        </div>
+        <div class="text-center">
+            <input class="btn btn-primary" type="submit" value="Завершить заказ" />
+        </div>
+    </form>
+}
