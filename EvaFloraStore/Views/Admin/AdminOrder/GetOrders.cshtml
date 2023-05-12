@@ -1,0 +1,23 @@
+﻿@model AdminOrdersViewModel
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="mb-5">
+    <h2>Новые заказы</h2>
+    @foreach (var item in Model.UnShippedOrders)
+    {
+        <div class="mb-3">
+            @item.OrderId
+        </div>
+    }
+</div> 
+<div class="mb-5">
+    <h2>Отправленные заказы</h2>
+    @foreach (var item in Model.ShippedOrders)
+    {
+        <div class="mb-3">
+            @item.OrderId
+        </div>
+    }
+</div> 

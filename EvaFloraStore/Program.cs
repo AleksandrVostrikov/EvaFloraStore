@@ -1,9 +1,11 @@
 using EvaFloraStore.Data;
+using EvaFloraStore.Infrastructure;
 using EvaFloraStore.Models;
 using EvaFloraStore.Models.SeedData;
 using EvaFloraStore.Repositories.Db;
 using EvaFloraStore.Repositories.Image;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +27,11 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped(SessionCart.GetCart);
 
 builder.Services.AddAutoMapper(typeof(Program));
+
+builder.Services.Configure<RazorViewEngineOptions>(options =>
+{
+    options.ViewLocationExpanders.Add(new MyViewLocationExpander());
+});
 
 var app = builder.Build();
 
