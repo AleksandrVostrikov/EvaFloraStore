@@ -6,5 +6,7 @@ namespace EvaFloraStore.Repositories.Db
     {
         Task<IQueryable<Order>> GetOrders();
         Task SaveOrder(Order order);
+
+        Task UpdateOrderStatus(Guid orderId);
     }
 }

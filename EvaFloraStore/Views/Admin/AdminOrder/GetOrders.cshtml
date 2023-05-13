@@ -5,19 +5,75 @@
 
 <div class="mb-5">
     <h2>Новые заказы</h2>
-    @foreach (var item in Model.UnShippedOrders)
-    {
-        <div class="mb-3">
-            @item.OrderId
-        </div>
-    }
+    <table class="table table-bordered table-striped" style="table-layout: fixed;">
+        <tr>
+            <th style="width: 35%;">ФИО</th>
+            <th style="width: 10%;">Индекс</th>
+            <th style="width: 40%;">Товар</th>
+            <th style="width: 5%;">Шт.</th>
+            <th style="width: 10%;">Статус</th>
+        </tr>
+        @foreach (var item in Model.UnShippedOrders)
+        {
+            <tr style="background-color: #555555;">
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.ZIP</td>
+                <td>@item.Email</td>
+                <td></td>
+                <td>
+                    <a class="btn btn-danger" asp-action="ChangeOrderStatus" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Отправлен</a>
+                </td>
+            </tr>
+            @foreach (var line in item.Lines)
+            {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>@line.Product.Name</td>
+                    <td>@line.Quantity</td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="">
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
 </div> 
 <div class="mb-5">
     <h2>Отправленные заказы</h2>
-    @foreach (var item in Model.ShippedOrders)
-    {
-        <div class="mb-3">
-            @item.OrderId
-        </div>
-    }
+    <table class="table table-bordered table-striped" style="table-layout: fixed;">
+        <tr>
+            <th style="width: 35%;">ФИО</th>
+            <th style="width: 10%;">Индекс</th>
+            <th style="width: 40%;">Товар</th>
+            <th style="width: 5%;">Шт.</th>
+            <th style="width: 10%;">Статус</th>
+        </tr>
+        @foreach (var item in Model.ShippedOrders)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.ZIP</td>
+                <td>@item.Email</td>
+                <td></td>
+                <td>
+                    <a class="btn btn-info" asp-action="ChangeOrderStatus" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Вернуть</a>
+                </td>
+            </tr>
+            @foreach (var line in item.Lines)
+            {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>@line.Product.Name</td>
+                    <td>@line.Quantity</td>
+                </tr>
+            }
+        }
+    </table>
 </div> 

@@ -15,10 +15,19 @@ namespace EvaFloraStore.Controllers
 
         public async Task<IActionResult> GetOrders()
         {
-            var fullOrders = await _orderRepository.GetOrders();
+            var fullOrders = (await _orderRepository.GetOrders()).Where(o => o.Archive == false);
             var unShippedOrders = fullOrders.Where(o => o.Shipped == false);
             var shippedOrders = fullOrders.Where(o => o.Shipped == true);
             return View(new AdminOrdersViewModel { UnShippedOrders = unShippedOrders, ShippedOrders = shippedOrders});
+        }
+
+        public async Task<IActionResult> ChangeOrderStatus(Guid orderId)
+        {
+            if (orderId != Guid.Empty)
+            {
+                await _orderRepository.UpdateOrderStatus(orderId);
+            }
+            return RedirectToAction("GetOrders");
         }
     }
 

@@ -10,6 +10,9 @@ namespace EvaFloraStore.Models
         public ICollection<CartLine>? Lines { get; set; }
         [BindNever]
         public bool Shipped { get; set; } = false;
+        [BindNever]
+        public bool Archive { get; set; } = false;
+
 
         public string Name { get; set; }
         public string Region { get; set; }

@@ -28,5 +28,20 @@ namespace EvaFloraStore.Repositories.Db
             }
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task UpdateOrderStatus(Guid orderId)
+        {
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+            if (order.Shipped)
+            {
+                order.Shipped = false;
+            }
+            else
+            {
+                order.Shipped = true;
+            }
+            _dbContext.Orders.Update(order);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
