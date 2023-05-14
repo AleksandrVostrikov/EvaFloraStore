@@ -8,5 +8,6 @@ namespace EvaFloraStore.Repositories.Db
         Task SaveOrder(Order order);
 
         Task UpdateOrderStatus(Guid orderId);
+        Task UpdateArchiveStatus(Guid orderId);
     }
 }

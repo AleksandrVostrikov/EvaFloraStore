@@ -3,8 +3,9 @@
     Layout = "_AdminLayout";
 }
 
+<a class="btn btn-primary" asp-action="GetArchive" asp-controller="AdminOrder">Архив заказов</a>
 <div class="mb-5">
-    <h2>Новые заказы</h2>
+    <h2>Новые заказы на сумму @Model.UnshippedSum руб.</h2>
     <table class="table table-bordered table-striped" style="table-layout: fixed;">
         <tr>
             <th style="width: 35%;">ФИО</th>
@@ -19,9 +20,9 @@
                 <td colspan="5"></td>
             </tr>
             <tr>
-                <td>@item.Name</td>
+                <td>@item.Name (@item.TotalSum руб.)</td>
                 <td>@item.ZIP</td>
-                <td>@item.Email</td>
+                <td> @item.Email</td>
                 <td></td>
                 <td>
                     <a class="btn btn-danger" asp-action="ChangeOrderStatus" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Отправлен</a>
@@ -45,7 +46,7 @@
     </table>
 </div> 
 <div class="mb-5">
-    <h2>Отправленные заказы</h2>
+    <h2>Отправленные заказы на сумму @Model.ShippedSum руб.</h2>
     <table class="table table-bordered table-striped" style="table-layout: fixed;">
         <tr>
             <th style="width: 35%;">ФИО</th>
@@ -57,12 +58,13 @@
         @foreach (var item in Model.ShippedOrders)
         {
             <tr>
-                <td>@item.Name</td>
+                <td>@item.Name (@item.TotalSum руб.)</td>
                 <td>@item.ZIP</td>
                 <td>@item.Email</td>
                 <td></td>
                 <td>
                     <a class="btn btn-info" asp-action="ChangeOrderStatus" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Вернуть</a>
+                    <a class="btn btn-danger" asp-action="ChangeArchiveStatus" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Архив</a>
                 </td>
             </tr>
             @foreach (var line in item.Lines)

@@ -1,0 +1,42 @@
+﻿@model IQueryable<Order>
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="mb-5">
+    <h2>Архив заказов</h2>
+    <table class="table table-bordered table-striped" style="table-layout: fixed;">
+        <tr>
+            <th style="width: 35%;">ФИО</th>
+            <th style="width: 10%;">Индекс</th>
+            <th style="width: 40%;">Товар</th>
+            <th style="width: 5%;">Шт.</th>
+            <th style="width: 10%;">Статус</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr style="background-color: #555555;">
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.ZIP</td>
+                <td>@item.Email</td>
+                <td></td>
+                <td>
+                    <a class="btn btn-info" asp-action="ChangeArchiveStatus" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Вернуть из архива</a>
+                </td>
+            </tr>
+            @foreach (var line in item.Lines)
+            {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>@line.Product.Name</td>
+                    <td>@line.Quantity</td>
+                    <td></td>
+                </tr>
+            }
+        }
+    </table>
+</div> 

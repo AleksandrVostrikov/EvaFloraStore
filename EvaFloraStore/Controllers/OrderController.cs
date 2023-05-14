@@ -27,6 +27,7 @@ namespace EvaFloraStore.Controllers
         public async Task<IActionResult> Checkout(Order order)
         {
             order.Lines = _cart.Lines.ToArray();
+            order.TotalSum = _cart.ComputeTotalValue();
             await _orderRepository.SaveOrder(order);
             _cart.Clear();
             return View();

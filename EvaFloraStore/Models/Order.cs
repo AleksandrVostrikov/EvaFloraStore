@@ -12,6 +12,8 @@ namespace EvaFloraStore.Models
         public bool Shipped { get; set; } = false;
         [BindNever]
         public bool Archive { get; set; } = false;
+        [BindNever]
+        public decimal TotalSum { get; set; }
 
 
         public string Name { get; set; }
