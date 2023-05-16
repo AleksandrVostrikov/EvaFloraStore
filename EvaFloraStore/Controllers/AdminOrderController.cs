@@ -1,4 +1,5 @@
-﻿using EvaFloraStore.Models.ViewModels;
+﻿using EvaFloraStore.Infrastructure;
+using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,10 +8,14 @@ namespace EvaFloraStore.Controllers
     public class AdminOrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly EmailService _emailService;
 
-        public AdminOrderController(IOrderRepository orderRepository)
+        public AdminOrderController(
+            IOrderRepository orderRepository,
+            EmailService emailService)
         {
             _orderRepository = orderRepository;
+            _emailService = emailService;
         }
 
         public async Task<IActionResult> GetOrders()
@@ -45,6 +50,11 @@ namespace EvaFloraStore.Controllers
                 await _orderRepository.UpdateArchiveStatus(orderId);
             }
             return RedirectToAction("GetOrders");
+        }
+
+        public async Task SendEmail()
+        {
+            await _emailService.SendEmailAsync("vostrikaleksandr@gmail.com", "Test", "Test message");
         }
     }
 
