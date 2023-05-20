@@ -3,6 +3,7 @@ using EvaFloraStore.Infrastructure;
 using EvaFloraStore.Models;
 using EvaFloraStore.Models.SeedData;
 using EvaFloraStore.Repositories.Db;
+using EvaFloraStore.Repositories.EmailHandler;
 using EvaFloraStore.Repositories.Image;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -19,6 +20,7 @@ builder.Services.AddScoped<IEvaStoreRepository, EvaStoreRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IImageController, ImageController>();
 
+
 builder.Services.AddRazorPages();
 
 builder.Services.AddDistributedMemoryCache();
@@ -29,6 +31,8 @@ builder.Services.AddScoped(SessionCart.GetCart);
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddTransient<EmailService>();
+
+builder.Services.AddTransient<IEmailHandler, EmailHandler>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 

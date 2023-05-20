@@ -4,7 +4,6 @@
 }
 
 <a class="btn btn-primary" asp-action="GetArchive" asp-controller="AdminOrder">Архив заказов</a>
-<a class="btn btn-group" asp-action="SendEmail" asp-controller="AdminOrder">Письмо</a>
 <div class="mb-5">
     <h2>Новые заказы на сумму @Model.UnshippedSum руб.</h2>
     <table class="table table-bordered table-striped" style="table-layout: fixed;">
@@ -26,7 +25,8 @@
                 <td> @item.Email</td>
                 <td></td>
                 <td>
-                    <a class="btn btn-danger" asp-action="ChangeOrderStatus" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Отправлен</a>
+                    <a class="btn btn-secondary btn-sm" asp-action="ChangeOrderStatus" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Отправлен</a>
+                    <a class="btn btn-danger btn-sm " asp-action="DeleteOrder" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Удалить</a>
                 </td>
             </tr>
             @foreach (var line in item.Lines)

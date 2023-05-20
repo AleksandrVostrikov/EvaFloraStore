@@ -3,6 +3,8 @@ using EvaFloraStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Contracts;
 using EvaFloraStore.Repositories.Db;
+using EvaFloraStore.Infrastructure;
+using EvaFloraStore.Repositories.EmailHandler;
 
 namespace EvaFloraStore.Controllers
 {
@@ -10,13 +12,16 @@ namespace EvaFloraStore.Controllers
     {
         private readonly IOrderRepository _orderRepository;
         private readonly Cart _cart;
+        private readonly IEmailHandler _emailHandler;
 
         public OrderController(
             IOrderRepository orderRepository,
-            Cart cartService)
+            Cart cartService,
+            IEmailHandler emailHandler)
         {
             _orderRepository = orderRepository;
             _cart = cartService;
+            _emailHandler = emailHandler;
         }
         public IActionResult Checkout()
         {
@@ -29,11 +34,9 @@ namespace EvaFloraStore.Controllers
             order.Lines = _cart.Lines.ToArray();
             order.TotalSum = _cart.ComputeTotalValue();
             await _orderRepository.SaveOrder(order);
+            await _emailHandler.SendSuccesOrderEmail(order.Email);
             _cart.Clear();
             return View();
         }
-
-
-
     }
 }

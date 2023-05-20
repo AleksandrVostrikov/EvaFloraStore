@@ -1,7 +1,6 @@
 ﻿@model Order
 @{
     <h2>Данные для заказа</h2>
-
     <form asp-action="Checkout" method="post">
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="mb-3">
@@ -29,7 +28,45 @@
             <input asp-for="Phone" class="form-control" required />
         </div>
         <div class="text-center">
-            <input class="btn btn-primary" type="submit" value="Завершить заказ" />
+            <button id="submitBtn" class="btn btn-primary" type="submit">Завершить заказ</button>
         </div>
     </form>
+
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderModalLabel">Заказ оформляется</h5>
+                </div>
+                <div class="modal-body">
+                    Пожалуйста, подождите, заказ оформляется!
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
 }
+
+<script>
+    document.getElementById('submitBtn').addEventListener('click', checkRequiredFields);
+    function checkRequiredFields() {
+        var requiredFields = document.querySelectorAll('input[required]');
+        var isAllFieldsFilled = true;
+
+        requiredFields.forEach(function (field) {
+            if (field.value.trim() === '') {
+                isAllFieldsFilled = false;
+                return;
+            }
+        });
+
+        var emailField = document.querySelector('input[type="email"]');
+        var isEmailValid = emailField.checkValidity();
+
+        if (isAllFieldsFilled && isEmailValid) {
+            $('#orderModal').modal('show');
+        }
+                
+    }
+</script>

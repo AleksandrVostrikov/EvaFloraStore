@@ -51,11 +51,15 @@ namespace EvaFloraStore.Controllers
             }
             return RedirectToAction("GetOrders");
         }
-
-        public async Task SendEmail()
+        public async Task<IActionResult> DeleteOrder(Guid orderId)
         {
-            await _emailService.SendEmailAsync("vostrikaleksandr@gmail.com", "Test", "Test message");
+            if (orderId != Guid.Empty)
+            {
+                await _orderRepository.DeleteOrder(orderId);
+            }
+            return RedirectToAction("GetOrders");
         }
+
     }
 
 }

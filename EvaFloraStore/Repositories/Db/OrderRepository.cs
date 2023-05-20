@@ -12,6 +12,7 @@ namespace EvaFloraStore.Repositories.Db
         {
             _dbContext = dbContext;
         }
+
         public async Task<IQueryable<Order>> GetOrders()
         {
             return await Task.FromResult(_dbContext.Orders
@@ -26,6 +27,14 @@ namespace EvaFloraStore.Repositories.Db
             {
                 await _dbContext.Orders.AddAsync(order);
             }
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteOrder(Guid orderId)
+        {
+            var order = await _dbContext.Orders.Include(o => o.Lines).FirstOrDefaultAsync(o => o.OrderId == orderId);
+            _dbContext.RemoveRange(order.Lines);
+            _dbContext.Orders.Remove(order);
             await _dbContext.SaveChangesAsync();
         }
 
