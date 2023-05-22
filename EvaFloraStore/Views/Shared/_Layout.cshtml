@@ -20,16 +20,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" 
-                            asp-controller="Product" 
-                            asp-action="GetProductList"
-                            asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">Продукты</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area=""
                                asp-controller="Cart"
                                asp-action="GetCart"
                                asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">Корзина</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" 
+                            asp-controller="Product" 
+                            asp-action="GetProductList"
+                            asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">Продукты</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area=""

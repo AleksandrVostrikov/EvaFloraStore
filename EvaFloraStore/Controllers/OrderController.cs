@@ -27,16 +27,28 @@ namespace EvaFloraStore.Controllers
         {
             return View(new Order());
         }
+        public IActionResult OrderSuccess()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Checkout(Order order)
         {
-            order.Lines = _cart.Lines.ToArray();
-            order.TotalSum = _cart.ComputeTotalValue();
-            await _orderRepository.SaveOrder(order);
-            await _emailHandler.SendSuccesOrderEmail(order.Email);
-            _cart.Clear();
-            return View();
+            if (ModelState.IsValid)
+            {
+                order.Lines = _cart.Lines.ToArray();
+                order.TotalSum = _cart.ComputeTotalValue();
+                await _orderRepository.SaveOrder(order);
+                await _emailHandler.SendSuccesOrderEmail(order.Email);
+                _cart.Clear();
+                return RedirectToAction("OrderSuccess");
+            }
+            else
+            {
+                return View();
+            }
+                
         }
     }
 }

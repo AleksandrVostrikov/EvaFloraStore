@@ -1,52 +1,54 @@
 ﻿@model Order
 @{
-    <h2>Данные для заказа</h2>
-    <form asp-action="Checkout" method="post">
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="mb-3">
-            <label>ФИО</label>
-            <input asp-for="Name" class="form-control" required />
-        </div>
-        <div class="mb-3">
-            <label>Область/Край</label>
-            <input asp-for="Region" class="form-control" required />
-        </div>
-        <div class="mb-3">
-            <label>Адрес</label>
-            <input asp-for="Adress" class="form-control" required />
-        </div>
-        <div class="mb-3">
-            <label>Индекс</label>
-            <input asp-for="ZIP" class="form-control" required />
-        </div>
-        <div class="mb-3">
-            <label>Email</label>
-            <input asp-for="Email" type="email" class="form-control" required />
-        </div>
-        <div class="mb-3">
-            <label>Телефон</label>
-            <input asp-for="Phone" class="form-control" required />
-        </div>
-        <div class="text-center">
-            <button id="submitBtn" class="btn btn-primary" type="submit">Завершить заказ</button>
-        </div>
-    </form>
 
-    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="orderModalLabel">Заказ оформляется</h5>
-                </div>
-                <div class="modal-body">
-                    Пожалуйста, подождите, заказ оформляется!
-                </div>
-                <div class="modal-footer">
-                </div>
+}
+<h2>Данные для заказа</h2>
+<form asp-action="Checkout" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label>ФИО</label>
+        <input asp-for="Name" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Область/Край</label>
+        <input asp-for="Region" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Адрес</label>
+        <input asp-for="Adress" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Индекс</label>
+        <input asp-for="ZIP" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Email</label>
+        <input asp-for="Email" type="email" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Телефон</label>
+        <input asp-for="Phone" class="form-control" type="tel" required />
+    </div>
+    <div class="text-center">
+        <button id="submitBtn" class="btn btn-primary" type="submit">Завершить заказ</button>
+    </div>
+</form>
+
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel"
+     data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLabel">Заказ оформляется</h5>
+            </div>
+            <div class="modal-body">
+                Пожалуйста, подождите, заказ оформляется!
+            </div>
+            <div class="modal-footer">
             </div>
         </div>
     </div>
-}
+</div>
 
 <script>
     document.getElementById('submitBtn').addEventListener('click', checkRequiredFields);
