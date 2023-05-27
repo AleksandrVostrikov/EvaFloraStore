@@ -6,6 +6,7 @@ using EvaFloraStore.Repositories.Db;
 using EvaFloraStore.Repositories.EmailHandler;
 using EvaFloraStore.Repositories.Image;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
@@ -15,6 +16,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ItemsDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("EvaFloraConnectionString")));
+
+builder.Services.AddDbContext<IdentityDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("IdentityConnectionString")));
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<IdentityDbContext>();
 
 builder.Services.AddScoped<IEvaStoreRepository, EvaStoreRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
@@ -56,7 +62,7 @@ app.UseStaticFiles();
 app.UseSession();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute("catpage",
@@ -77,4 +83,6 @@ app.MapRazorPages();
 app.MapDefaultControllerRoute();
 
 SeedData.EnsurePopulated(app);
+IdentitySeedData.EnsurePopulated(app);
+
 app.Run();
