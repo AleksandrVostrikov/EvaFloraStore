@@ -1,21 +1,21 @@
 ﻿using EvaFloraStore.Infrastructure;
 using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EvaFloraStore.Controllers
 {
+    [Authorize]
     public class AdminOrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly EmailService _emailService;
 
         public AdminOrderController(
-            IOrderRepository orderRepository,
-            EmailService emailService)
+            IOrderRepository orderRepository
+            )
         {
             _orderRepository = orderRepository;
-            _emailService = emailService;
         }
 
         public async Task<IActionResult> GetOrders()

@@ -3,12 +3,14 @@ using EvaFloraStore.Models;
 using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
 using EvaFloraStore.Repositories.Image;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
 
 namespace EvaFloraStore.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IEvaStoreRepository _evaStoreRepository;

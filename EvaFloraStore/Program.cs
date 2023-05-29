@@ -65,6 +65,10 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapControllerRoute("admin",
+    "/admin",
+    new { Controller = "Account", action = "Login" });
+
 app.MapControllerRoute("catpage",
     "{category}/Page{productPage:int}",
     new { Controller = "Home", action = "Index" });
