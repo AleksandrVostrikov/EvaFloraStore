@@ -1,6 +1,8 @@
 ﻿using EvaFloraStore.Infrastructure;
+using EvaFloraStore.Models;
 using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
+using MailKit.Search;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,6 +45,23 @@ namespace EvaFloraStore.Controllers
             return View(Orders);
         }
 
+        public async Task<IActionResult> OrderProcessing(Guid orderId)
+        {
+            var order = (await _orderRepository.GetOrders()).FirstOrDefault(o => o.OrderId == orderId);
+            if (order != null)
+            {
+                return View(new OrderProcessingViewModel
+                {
+                    Order = order,
+                    AdressLine = $"{order.ZIP}, {order.Region}, {order.Adress}"
+                });
+            }
+            else
+            {
+                return RedirectToAction("GetOrders");
+            }
+        }
+
         public async Task<IActionResult> ChangeArchiveStatus(Guid orderId)
         {
             if (orderId != Guid.Empty)
@@ -59,6 +78,8 @@ namespace EvaFloraStore.Controllers
             }
             return RedirectToAction("GetOrders");
         }
+
+
 
     }
 

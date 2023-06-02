@@ -32,5 +32,8 @@ namespace EvaFloraStore.Models
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$", ErrorMessage = "Номер телефона указан неверно!")]
         public string Phone { get; set; }
+
+        
+        public decimal Shipping { get; set; } = 0;
     }
 }

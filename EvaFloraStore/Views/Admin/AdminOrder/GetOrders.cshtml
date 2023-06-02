@@ -23,7 +23,9 @@
                 <td>@item.Name (@item.TotalSum руб.)</td>
                 <td>@item.ZIP</td>
                 <td> @item.Email</td>
-                <td></td>
+                <td>
+                    <a class="btn btn-secondary btn-sm" asp-action="ChangeOrderStatus" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Обработать</a>
+                </td>
                 <td>
                     <a class="btn btn-secondary btn-sm" asp-action="ChangeOrderStatus" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Отправлен</a>
                     <a class="btn btn-danger btn-sm " asp-action="DeleteOrder" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Удалить</a>
