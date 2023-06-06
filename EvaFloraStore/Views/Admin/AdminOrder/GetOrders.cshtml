@@ -1,6 +1,6 @@
 ﻿@model AdminOrdersViewModel
 @{
-    Layout = "_AdminLayout";
+    Layout = "_Layout";
 }
 
 <a class="btn btn-primary" asp-action="GetArchive" asp-controller="AdminOrder">Архив заказов</a>
@@ -24,7 +24,7 @@
                 <td>@item.ZIP</td>
                 <td> @item.Email</td>
                 <td>
-                    <a class="btn btn-secondary btn-sm" asp-action="ChangeOrderStatus" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Обработать</a>
+                    <a class="btn btn-info btn-sm" asp-action="OrderProcessing" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Заказ</a>
                 </td>
                 <td>
                     <a class="btn btn-secondary btn-sm" asp-action="ChangeOrderStatus" asp-controller="AdminOrder" asp-route-orderId="@item.OrderId">Отправлен</a>
@@ -45,6 +45,15 @@
                     </td>
                 </tr>
             }
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Доставка</td>
+                <td>
+                    @item.Shipping
+                </td>
+            </tr>
         }
     </table>
 </div> 

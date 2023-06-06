@@ -5,7 +5,6 @@ namespace EvaFloraStore.Models
 {
     public class Order
     {
-        [BindNever]
         public Guid OrderId { get; set; }
         [BindNever]
         public ICollection<CartLine>? Lines { get; set; }

@@ -14,19 +14,13 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EvaFloraStore</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EvaFlora</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area=""
-                               asp-controller="Cart"
-                               asp-action="GetCart"
-                               asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">Корзина</a>
-                        </li>
                         @if (signInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
@@ -42,19 +36,43 @@
                             </li>
                         }
                     </ul>
+                    <div class="d-flex justify-content-end">
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <a class="btn btn-sm btn-danger" asp-area=""
+                           asp-controller="Account"
+                           asp-action="Logout">Выйти</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-sm btn-info" asp-area=""
+                           asp-controller="Cart"
+                           asp-action="GetCart"
+                           asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">Корзина</a>
+                        }
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-   
-    <div class="row m-1 p-1">
-        <div id="categories" class="col-2">
-            <vc:navigation-menu />
+
+    @if (!signInManager.IsSignedIn(User))
+    {
+        <div class="row m-1 p-1">
+            <div id="categories" class="col-2">
+                <vc:navigation-menu />
+            </div>
+            <div class="col-10">
+                @RenderBody()
+            </div>
         </div>
-        <div class="col-10">
+    }
+    else
+    {
+        <div class="row m-1 p-1">
             @RenderBody()
         </div>
-    </div>
+    }
 
     <footer class="border-top footer text-muted">
         <div class="container">

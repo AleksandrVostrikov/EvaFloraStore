@@ -1,6 +1,37 @@
 ﻿@model OrderProcessingViewModel
 @{
-    Layout = "_AdminLayout";
+    Layout = "_Layout";
 }
+
+<div>
+    <form asp-action="OrderProcessing" method="post">
+        <div class="mb-3">
+            <input asp-for="Order.OrderId" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label>Сумма заказа</label>
+            <input asp-for="Order.TotalSum" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label>Адрес доставки</label>
+            <input asp-for="AdressLine" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label>ФИО</label>
+            <input asp-for="Order.Name" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label>Email</label>
+            <input asp-for="Order.Email" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label>Доставка</label>
+            <input asp-for="Order.Shipping" class="form-control" required />
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">Сохранить</button>
+        </div>
+    </form>
+</div>
 
 

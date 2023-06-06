@@ -36,7 +36,7 @@ namespace EvaFloraStore.Controllers
                         loginModel.Password, false, false);
                     if (signResult.Succeeded)
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("GetOrders", "AdminOrder");
                     }
                 }
             }
@@ -49,6 +49,5 @@ namespace EvaFloraStore.Controllers
             await _signInManager.SignOutAsync();
             return Redirect(returnUrl);
         }
-
     }
 }

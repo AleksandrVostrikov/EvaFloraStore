@@ -62,6 +62,15 @@ namespace EvaFloraStore.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> OrderProcessing(OrderProcessingViewModel model)
+        {
+            var order = await _orderRepository.GetOrder(model.Order.OrderId);
+            order.Shipping = model.Order.Shipping;
+            await _orderRepository.UpdateOrder(order);
+            return RedirectToAction("GetOrders");
+        }
+
         public async Task<IActionResult> ChangeArchiveStatus(Guid orderId)
         {
             if (orderId != Guid.Empty)
@@ -78,8 +87,6 @@ namespace EvaFloraStore.Controllers
             }
             return RedirectToAction("GetOrders");
         }
-
-
 
     }
 

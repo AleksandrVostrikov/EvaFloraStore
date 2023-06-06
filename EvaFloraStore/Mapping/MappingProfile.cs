@@ -21,6 +21,8 @@ namespace EvaFloraStore.Mapping
             CreateMap<Product, ProductAdding>()
                 .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src))
                 .ForMember(dest => dest.Categories, opt => opt.Ignore());
+
+
         }
     }
 }

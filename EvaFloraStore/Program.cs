@@ -66,7 +66,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute("admin",
-    "/admin",
+    "/AleksandrVostrikov",
     new { Controller = "Account", action = "Login" });
 
 app.MapControllerRoute("catpage",

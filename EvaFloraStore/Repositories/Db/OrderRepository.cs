@@ -67,5 +67,16 @@ namespace EvaFloraStore.Repositories.Db
             _dbContext.Orders.Update(order);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task UpdateOrder(Order order)
+        {
+            _dbContext.Orders.Update(order);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Order> GetOrder(Guid orderId)
+        {
+            return await _dbContext.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+        }
     }
 }
