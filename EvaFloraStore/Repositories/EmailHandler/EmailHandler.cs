@@ -1,5 +1,6 @@
 ﻿using EvaFloraStore.Infrastructure;
 using EvaFloraStore.Models;
+using Microsoft.Extensions.Options;
 
 namespace EvaFloraStore.Repositories.EmailHandler
 {
@@ -7,12 +8,15 @@ namespace EvaFloraStore.Repositories.EmailHandler
     {
         private readonly Cart _cart;
         private readonly EmailService _emailService;
+        private readonly IOptions<CardDetails> _options;
 
-        public EmailHandler(Cart cart, EmailService emailService)
+        public EmailHandler(Cart cart, EmailService emailService, IOptions<CardDetails> options)
         {
             _cart = cart;
             _emailService = emailService;
+            _options = options;
         }
+
         public async Task SendSuccesOrderEmail(string email)
         {
             var orderLines = _cart.Lines.ToArray();
@@ -26,5 +30,12 @@ namespace EvaFloraStore.Repositories.EmailHandler
                 "Спасибо за заказ! Если у Вас есть вопросы, то Вы можете задать их в ответном письме.";
             await _emailService.SendEmailAsync(email, "Заказ продукции", emailMessage);
         }
+        public async Task SendOrderConfirmationEmail(string email, decimal cost, decimal shipping, string track)
+        {
+            string emailMessage = $"Здравствуйте! Ваша посылка готова к отправке. Стомость продуктов {cost} руб., стоимость доставки {shipping} руб., " +
+                $"итого {cost+shipping} руб. Реквизиты карты для оплаты {_options.Value.CardNumber} {_options.Value.CardHolder} Трек-номер посылки {track}";
+            await _emailService.SendEmailAsync(email, "Заказ продукции", emailMessage);
+        }
+
     }
 }

@@ -36,6 +36,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped(SessionCart.GetCart);
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.Configure<CardDetails>(builder.Configuration.GetSection("CardDetails"));
 builder.Services.AddTransient<EmailService>();
 
 builder.Services.AddTransient<IEmailHandler, EmailHandler>();

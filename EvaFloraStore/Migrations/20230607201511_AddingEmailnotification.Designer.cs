@@ -3,6 +3,7 @@ using System;
 using EvaFloraStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EvaFloraStore.Migrations
 {
     [DbContext(typeof(ItemsDbContext))]
-    partial class ItemsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230607201511_AddingEmailnotification")]
+    partial class AddingEmailnotification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,10 +106,6 @@ namespace EvaFloraStore.Migrations
 
                     b.Property<decimal>("TotalSum")
                         .HasColumnType("numeric");
-
-                    b.Property<string>("Track")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("ZIP")
                         .IsRequired()

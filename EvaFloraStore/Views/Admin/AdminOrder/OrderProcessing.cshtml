@@ -28,10 +28,52 @@
             <label>Доставка</label>
             <input asp-for="Order.Shipping" class="form-control" required />
         </div>
+        <div class="mb-3">
+            <label>Трек-номер</label>
+            <input asp-for="Order.Track" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            @if (Model.Order.IsEmail)
+            {
+                <label>Письмо было отправлено!</label>
+            }
+            else
+            {
+                <label>Письмо еще не отправлялось!</label>
+            }
+        </div>
         <div class="text-center">
-            <button class="btn btn-primary" type="submit">Сохранить</button>
+            <button class="btn btn-primary" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()" type="submit">Сохранить</button>
+            <button id="submitBtn" class="btn btn-info"
+               asp-action="SendEmail" 
+                asp-controller="AdminOrder"
+                asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"
+                asp-route-orderId="@Model.Order.OrderId">Отправить Email</button>
         </div>
     </form>
+
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel"
+         data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderModalLabel">Отправка письма.</h5>
+                </div>
+                <div class="modal-body">
+                    Подождите, письмо отправляется.
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    document.getElementById('submitBtn').addEventListener('click', checkRequiredFields);
+    function checkRequiredFields() {
+        $('#orderModal').modal('show');
+    }
+</script>
 
 

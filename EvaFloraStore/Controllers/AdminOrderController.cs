@@ -2,6 +2,7 @@
 using EvaFloraStore.Models;
 using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
+using EvaFloraStore.Repositories.EmailHandler;
 using MailKit.Search;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,15 @@ namespace EvaFloraStore.Controllers
     public class AdminOrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IEmailHandler _emailHandler;
 
         public AdminOrderController(
-            IOrderRepository orderRepository
+            IOrderRepository orderRepository,
+            IEmailHandler emailHandler
             )
         {
             _orderRepository = orderRepository;
+            _emailHandler = emailHandler;
         }
 
         public async Task<IActionResult> GetOrders()
@@ -63,12 +67,22 @@ namespace EvaFloraStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> OrderProcessing(OrderProcessingViewModel model)
+        public async Task<IActionResult> OrderProcessing(OrderProcessingViewModel model, string returnUrl)
         {
             var order = await _orderRepository.GetOrder(model.Order.OrderId);
             order.Shipping = model.Order.Shipping;
+            order.Track = model.Order.Track;
             await _orderRepository.UpdateOrder(order);
-            return RedirectToAction("GetOrders");
+
+            return Redirect(returnUrl);
+        }
+        public async Task<IActionResult> SendEmail(Guid orderId, string returnUrl)
+        {
+            var order = await _orderRepository.GetOrder(orderId);
+            await _emailHandler.SendOrderConfirmationEmail(order.Email, order.TotalSum, order.Shipping, order.Track);
+            order.IsEmail = true;
+            await _orderRepository.UpdateOrder(order);
+            return Redirect(returnUrl);
         }
 
         public async Task<IActionResult> ChangeArchiveStatus(Guid orderId)

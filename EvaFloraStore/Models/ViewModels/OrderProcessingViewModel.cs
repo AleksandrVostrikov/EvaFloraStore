@@ -4,5 +4,6 @@
     {
         public Order Order { get; set; }
         public string AdressLine { get; set; } = "адрес не указан";
+        public bool IsMail { get; set; }
     }
 }

@@ -14,17 +14,19 @@
     <div class="bg-dark text-white p-2">
         <span class="navbar-brand ms-2">EvaFloraStore</span>
     </div>
+
     <div class="m-1 p-1">
         <div class="text-danger" asp-validation-summary="All"></div>
         <form asp-action="Login" asp-controller="Account" method="post">
+            @Html.AntiForgeryToken()
             <div class="mb-3">
                 <label asp-for="Name"></label>
-                <div asp-validation-for="Name" class="text-danger"></div>
+                <span asp-validation-for="Name" class="text-danger"></span>
                 <input asp-for="Name" class="form-control" />
             </div>
             <div class="mb-3">
                 <label asp-for="Password"></label>
-                <div asp-validation-for="Password" class="text-danger"></div>
+                <span asp-validation-for="Password" class="text-danger"></span>
                 <input asp-for="Password" class="form-control" />
             </div>
             <button class="btn btn-primary" type="submit">Войти</button>
