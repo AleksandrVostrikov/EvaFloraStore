@@ -45,10 +45,7 @@
                         }
                         else
                         {
-                            <a class="btn btn-sm btn-info" asp-area=""
-                           asp-controller="Cart"
-                           asp-action="GetCart"
-                           asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">Корзина</a>
+                           <vc:cart-summary/>
                         }
                     </div>
                 </div>
@@ -76,7 +73,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - EvaFloraStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - EvaFlora - Александр Востриков</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

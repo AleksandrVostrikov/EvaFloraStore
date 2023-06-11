@@ -34,6 +34,6 @@ namespace EvaFloraStore.Models
         
         public decimal Shipping { get; set; } = 0;
         public bool IsEmail { get; set; } = false;
-        public string Track { get; set; }
+        public string Track { get; set; } = "трек-номер отправления";
     }
 }
