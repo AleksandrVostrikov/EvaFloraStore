@@ -1,11 +1,10 @@
-﻿
-@model Product
+﻿@model Product
 @{
 }
 
-<div class="card mb-3 shadow shadow-lg rounded d-flex">
+<div class="card mb-3  d-flex product-card">
     <div class="card-img-top">
-        <img src="@Url.Content("~/"+Model.ImageUrl)" alt="@Model.Name" class="w-100 rounded">
+        <img src="@Url.Content("~/"+Model.ImageUrl)" alt="@Model.Name" class="w-100">
     </div>
     <div class="card-body">
         <div class="row">

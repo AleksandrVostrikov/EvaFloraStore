@@ -1,12 +1,16 @@
 ﻿@model ProductDetailsViewModel
 @{
+    Layout = "_Layout";
 }
 
 <div>
     <h1>@Model.Product.Name</h1>
 </div>
+<div class="productDetailImage mb-5">
+    <img src="@Url.Content("~/"+Model.Product.ImageUrl)" alt="@Model.Product.Name" class="w-25">
+</div>
 <div>
-    @Model.Product.Description
+    @Html.Raw(Model.Product.Description)
 </div>
 <div class="text-start mt-3">
     <a class="btn btn-dark" href="@Model.ReturnUrl">Назад</a>

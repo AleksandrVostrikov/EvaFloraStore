@@ -18,7 +18,9 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    /*background-image: url("/kandinsky.png");
+    background-size: cover;*/
 }
 
 .table-custom {
@@ -53,6 +55,23 @@ body {
     background-color: #f5f5f5;
 }
 
+.component-container {
+    background-color: white;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.product-card {
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+    .product-card .card-img-top img {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+.productDetailImage img {
+    border-radius: 15px;
+}
 
 
 

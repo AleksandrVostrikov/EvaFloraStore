@@ -84,7 +84,10 @@ namespace EvaFloraStore.Controllers
                 var product = _mapper.Map<Product>(model.Product);
                 if (product.Id != Guid.Empty)
                 {
-                    product.ImageUrl = _imageController.UpdateImage(product.ImageUrl, model.Image);
+                    if (model.Image != null)
+                    {
+                        product.ImageUrl = _imageController.UpdateImage(product.ImageUrl, model.Image);
+                    }
                     await _evaStoreRepository.SaveAsync(product);
                 }
                 else
