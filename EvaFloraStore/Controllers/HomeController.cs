@@ -12,7 +12,7 @@ namespace EvaFloraStore.Controllers
 {
     public class HomeController : Controller
     {
-        public int PageSize = 4;
+        public int PageSize = 6;
 
         private readonly IEvaStoreRepository _evaStoreRepository;
 

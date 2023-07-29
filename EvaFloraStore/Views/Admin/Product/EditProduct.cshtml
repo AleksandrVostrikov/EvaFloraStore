@@ -16,7 +16,6 @@
     <div class="mb-3">
         <label>Описание</label>
         <textarea class="form-control" id="description" asp-for="@Model.Product.Description" required></textarea>
-        @*<input asp-for="@Model.Product.Description" class="form-control" required />*@
     </div>
     <div class="mb-3">
         <label>Короткое описание</label>
@@ -71,7 +70,7 @@
        asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">Список продуктов</a>
 </div>
 
-<script>
+@*<script>
     tinymce.init({
         selector: 'textarea',
         plugins: 'anchor autolink charmap codesample emoticons link lists searchreplace table visualblocks wordcount checklist casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
@@ -84,3 +83,4 @@
         ]
     });
 </script>
+*@

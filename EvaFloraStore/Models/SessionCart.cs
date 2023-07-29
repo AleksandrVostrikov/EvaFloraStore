@@ -7,38 +7,42 @@ namespace EvaFloraStore.Models
     {
         public static Cart GetCart(IServiceProvider services)
         {
-            ISession session =
+            ISession? session =
                 services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
             SessionCart cart = session?.GetJson<SessionCart>("cart") ?? new SessionCart();
-            cart.Session = session;
+            if (session != null)
+            {
+                cart.Session = session;
+            }
             return cart;
         }
 
         [JsonIgnore]
-        public ISession Session { get; set; }
+        public ISession? Session { get; set; }
 
         public override void AddItem(Product product, int quantity)
         {
             base.AddItem(product, quantity);
-            Session.SetJson("cart", this);
+            Session?.SetJson("cart", this);
+            
         }
 
         public override void RemoveLine(Product product)
         {
             base.RemoveLine(product);
-            Session.SetJson("cart", this);
+            Session?.SetJson("cart", this);
         }
 
         public override void Clear()
         {
             base.Clear();
-            Session.SetJson("cart", this);
+            Session?.SetJson("cart", this);
         }
 
         public override void ChangeQuantity(Product product, int quantity)
         {
             base.ChangeQuantity(product, quantity);
-            Session.SetJson("cart", this);
+            Session?.SetJson("cart", this);
         }
     }
 }

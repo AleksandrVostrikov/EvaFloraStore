@@ -1,0 +1,54 @@
+<div class="card mb-3  d-flex product-card">
+    <div class="card-img-top">
+        <img src="@Url.Content("~/"+Model.ImageUrl)" alt="@Model.Name" class="w-100">
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <h4 class="card-title">@Model.Name</h4>
+            </div>
+            <div class="col-6">
+                <a asp-action="ProductDetails" 
+                   asp-controller="Home" 
+                   asp-route-id="@Model.Id"
+                   asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"
+                   class="btn btn-outline-secondary btn-sm float-end">Подробнее</a>
+            </div>
+        </div>
+        <p class="card-text">@Model.ShortDescription</p>
+        <div class="row">
+            <div class="col-6">
+                <span class="badge bg-primary">
+                    <small>@Model.Price.ToString() руб.</small>
+                </span>
+            </div>
+            <div class="col-6">
+                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"
+                   class="btn btn-dark btn-sm float-end mt-3">В корзину</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+/* product card style*/
+
+.product-card {
+    border-radius: 15px;
+    box-shadow: 2px 5px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+    .product-card .card-img-top img {
+        position: relative;
+        vertical-align: top;
+        max-width: 100%;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        transition: 0.25s ease;
+    }
+    .product-card .card-img-top:hover img {
+        transform: scale(1.05);
+    }
+
+.productDetailImage img {
+    border-radius: 15px;
+}
