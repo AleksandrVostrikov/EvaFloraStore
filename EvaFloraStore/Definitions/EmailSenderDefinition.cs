@@ -10,6 +10,7 @@ namespace EvaFloraStore.Definitions
         {
             builder.Services.AddTransient<EmailService>();
             builder.Services.AddTransient<IEmailHandler, EmailHandler>();
-        } 
+        }
+   
     }
 }

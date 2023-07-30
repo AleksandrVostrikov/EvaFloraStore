@@ -1,50 +1,40 @@
 ﻿using Calabonga.AspNetCore.AppDefinitions;
-using EvaFloraStore.Data;
-using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Identity;
+using Serilog;
+using Serilog.Events;
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.AddDefinitions(typeof(Program));
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<IdentityDbContext>();
-
-var app = builder.Build();
-
-app.UseForwardedHeaders(new ForwardedHeadersOptions
+try
 {
-    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-});
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseSession();
-app.UseRouting();
-app.UseAuthentication();
-app.UseAuthorization();
+    Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateLogger();
 
+    var builder = WebApplication.CreateBuilder(args);
+    builder.Host.UseSerilog();
+    builder.AddDefinitions(typeof(Program));
 
-app.MapControllerRoute("admin",
-    "/AleksandrVostrikov",
-    new { Controller = "Account", action = "Login" });
+    var app = builder.Build();
+    app.UseDefinitions();
+    app.Run();
 
-app.MapControllerRoute("catpage",
-    "{category}/Page{productPage:int}",
-    new { Controller = "Home", action = "Index" });
+    return 0;
 
-app.MapControllerRoute("page", "Page{productPage:int}",
-    new { Controller = "Home", action = "Index" });
+}
+catch (Exception ex)
+{
+    var type = ex.GetType().Name;
+    if (type.Equals("StopTheHostException", StringComparison.Ordinal))
+    {
+        throw;
+    }
 
-app.MapControllerRoute("category", "{category}",
-    new { Controller = "Home", action = "Index" });
+    Log.Fatal(ex, "Unhandled exception");
+    return 1;
+}
+finally
+{
+    Log.CloseAndFlush();
+}
 
-app.MapControllerRoute("pagedividing",
-    "Products/Page{productPage}",
-    new { Controller = "Home", action = "Index" });
-
-app.MapRazorPages();
-app.MapDefaultControllerRoute();
-
-//SeedData.EnsurePopulated(app);
-//IdentitySeedData.EnsurePopulated(app);
-
-app.Run();

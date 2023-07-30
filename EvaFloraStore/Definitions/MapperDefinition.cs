@@ -7,6 +7,6 @@ namespace EvaFloraStore.Definitions
         public override void ConfigureServices(WebApplicationBuilder builder)
         {
             builder.Services.AddAutoMapper(typeof(Program));
-        } 
+        }
     }
 }

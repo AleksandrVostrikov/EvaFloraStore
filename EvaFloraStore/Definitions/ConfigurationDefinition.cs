@@ -4,6 +4,7 @@ using EvaFloraStore.Models;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System.Net;
 
+
 namespace EvaFloraStore.Definitions
 {
     public class ConfigurationDefinition : AppDefinition
