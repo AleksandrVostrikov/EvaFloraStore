@@ -2,11 +2,7 @@
 using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting.Internal;
 using System.Diagnostics;
-using System.Drawing.Printing;
-using System.Linq;
 
 namespace EvaFloraStore.Controllers
 {
@@ -22,7 +18,7 @@ namespace EvaFloraStore.Controllers
             _evaStoreRepository = evaStoreRepository;
         }
 
-        public async Task<IActionResult> Index( string category,  int productPage=1)
+        public async Task<IActionResult> Index(string category,  int productPage=1)
         {
             var allProducts = (await _evaStoreRepository.GetProductsAsync())
                 .Where(p => p.IsVisible == true);

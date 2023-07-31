@@ -7,8 +7,11 @@ namespace EvaFloraStore.Definitions
     {
         public override void ConfigureApplication(WebApplication app)
         {
-            SeedData.EnsurePopulated(app);
-            IdentitySeedData.EnsurePopulated(app);
+            if (app.Environment.IsDevelopment())
+            {
+                SeedData.EnsurePopulated(app);
+                IdentitySeedData.EnsurePopulated(app);
+            }
         }
     }
 }

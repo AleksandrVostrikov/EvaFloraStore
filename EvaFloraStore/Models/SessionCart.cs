@@ -8,7 +8,7 @@ namespace EvaFloraStore.Models
         public static Cart GetCart(IServiceProvider services)
         {
             ISession? session =
-                services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+                services.GetRequiredService<IHttpContextAccessor>()?.HttpContext?.Session;
             SessionCart cart = session?.GetJson<SessionCart>("cart") ?? new SessionCart();
             if (session != null)
             {

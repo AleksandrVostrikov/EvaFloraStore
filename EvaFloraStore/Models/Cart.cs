@@ -1,6 +1,4 @@
-﻿using Microsoft.CodeAnalysis.VisualBasic;
-
-namespace EvaFloraStore.Models
+﻿namespace EvaFloraStore.Models
 {
     public class CartLine
     {
@@ -15,7 +13,7 @@ namespace EvaFloraStore.Models
 
         public virtual void AddItem(Product product, int quantity)
         {
-            CartLine line = Lines
+            CartLine? line = Lines
                 .Where(p => p.Product.Id == product.Id)
                 .FirstOrDefault();
             if (line == null)
@@ -40,7 +38,7 @@ namespace EvaFloraStore.Models
 
         public virtual void ChangeQuantity(Product product, int quantity)
         {
-            CartLine line = Lines
+            CartLine? line = Lines
                 .Where(p => p.Product.Id == product.Id)
                 .FirstOrDefault();
             if (line != null)
