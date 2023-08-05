@@ -23,28 +23,6 @@ namespace EvaFloraStore.Definitions
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSession();
-
-            app.MapControllerRoute("admin",
-                "/AleksandrVostrikov",
-                new { Controller = "Account", action = "Login" });
-
-            app.MapControllerRoute("catpage",
-                "{category}/Page{productPage:int}",
-                new { Controller = "Home", action = "Index" });
-
-            app.MapControllerRoute("page", "Page{productPage:int}",
-                new { Controller = "Home", action = "Index" });
-
-            app.MapControllerRoute("category", "{category}",
-                new { Controller = "Home", action = "Index" });
-
-            app.MapControllerRoute("pagedividing",
-                "Products/Page{productPage}",
-                new { Controller = "Home", action = "Index" });
-
-            app.MapRazorPages();
-            app.MapDefaultControllerRoute();
-
         }
 
     }

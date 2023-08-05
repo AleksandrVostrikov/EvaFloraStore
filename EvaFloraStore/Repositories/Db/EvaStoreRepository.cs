@@ -72,5 +72,16 @@ namespace EvaFloraStore.Repositories.Db
             return await _dbContext.Categories
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
+
+        public async Task<int> GetCountProductsAsync()
+        {
+            return await _dbContext.Products.CountAsync();
+        } 
+        public async Task<int> GetCountProductsAsync(string category)
+        {
+            return await _dbContext.Products
+                .Where(p => p.Category.Name == category)
+                .CountAsync();
+        } 
     }
 }

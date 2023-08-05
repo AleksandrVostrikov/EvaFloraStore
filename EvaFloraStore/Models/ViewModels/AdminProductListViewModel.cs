@@ -2,8 +2,8 @@
 {
     public class AdminProductListViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
-        public string ReturnUrl { get; set; }
+        public IEnumerable<Product>? Products { get; set; }
+        public string? ReturnUrl { get; set; }
     }
 
 }

@@ -28,17 +28,13 @@ namespace EvaFloraStore.Controllers
                 .Skip((productPage - 1) * PageSize)
                 .Take(PageSize).ToList();
 
-            var productViewModels = products.Select((p, i) => new ProductViewModel
-            {
-                DispalyedProduct = p,
-                PositionInList = i
-            });
             int totalItems = category == null ?
-                    allProducts.Count() : allProducts
-                    .Where(p => p.Category.Name == category).Count();
+                    await _evaStoreRepository.GetCountProductsAsync() : 
+                    await _evaStoreRepository.GetCountProductsAsync(category);
+            
             var productListViewModel = new ProductListViewModel
             {
-                Products = productViewModels,
+                Products = products,
                 ProductsCount = totalItems,
                 CurrentCategory = category
             };
@@ -61,7 +57,6 @@ namespace EvaFloraStore.Controllers
             };
             return View(viewModel);
         }
-
 
         public IActionResult Privacy()
         {

@@ -4,11 +4,11 @@ namespace EvaFloraStore.Models.ViewModels
 {
     public class ProductAdding
     {
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
         
         [ValidateNever]
-        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Category>? Categories { get; set; }
         [ValidateNever]
-        public IFormFile Image { get; set; }
+        public IFormFile? Image { get; set; }
     }
 }
