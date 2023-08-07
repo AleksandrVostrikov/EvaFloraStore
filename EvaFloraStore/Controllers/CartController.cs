@@ -25,7 +25,7 @@ namespace EvaFloraStore.Controllers
             return Redirect(returnUrl);
         }
 
-        public IActionResult GetCart(string returnUrl)
+        public IActionResult GetCart(string? returnUrl)
         {
             if (returnUrl == null)
             {

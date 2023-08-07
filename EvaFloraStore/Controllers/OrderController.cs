@@ -1,9 +1,6 @@
-﻿using EvaFloraStore.Models.ViewModels;
-using EvaFloraStore.Models;
+﻿using EvaFloraStore.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.Contracts;
 using EvaFloraStore.Repositories.Db;
-using EvaFloraStore.Infrastructure;
 using EvaFloraStore.Repositories.EmailHandler;
 
 namespace EvaFloraStore.Controllers

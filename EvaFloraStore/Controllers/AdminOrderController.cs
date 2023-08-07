@@ -1,9 +1,6 @@
-﻿using EvaFloraStore.Infrastructure;
-using EvaFloraStore.Models;
-using EvaFloraStore.Models.ViewModels;
+﻿using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
 using EvaFloraStore.Repositories.EmailHandler;
-using MailKit.Search;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

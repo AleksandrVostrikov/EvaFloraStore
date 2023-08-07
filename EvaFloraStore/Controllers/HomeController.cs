@@ -2,17 +2,13 @@
 using EvaFloraStore.Models.ViewModels;
 using EvaFloraStore.Repositories.Db;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting.Internal;
 using System.Diagnostics;
-using System.Drawing.Printing;
-using System.Linq;
 
 namespace EvaFloraStore.Controllers
 {
     public class HomeController : Controller
     {
-        public int PageSize = 4;
+        public int PageSize = 6;
 
         private readonly IEvaStoreRepository _evaStoreRepository;
 
@@ -22,7 +18,7 @@ namespace EvaFloraStore.Controllers
             _evaStoreRepository = evaStoreRepository;
         }
 
-        public async Task<IActionResult> Index( string category,  int productPage=1)
+        public async Task<IActionResult> Index(string category,  int productPage=1)
         {
             var allProducts = (await _evaStoreRepository.GetProductsAsync())
                 .Where(p => p.IsVisible == true);
@@ -32,17 +28,13 @@ namespace EvaFloraStore.Controllers
                 .Skip((productPage - 1) * PageSize)
                 .Take(PageSize).ToList();
 
-            var productViewModels = products.Select((p, i) => new ProductViewModel
-            {
-                DispalyedProduct = p,
-                PositionInList = i
-            });
             int totalItems = category == null ?
-                    allProducts.Count() : allProducts
-                    .Where(p => p.Category.Name == category).Count();
+                    await _evaStoreRepository.GetCountProductsAsync() : 
+                    await _evaStoreRepository.GetCountProductsAsync(category);
+            
             var productListViewModel = new ProductListViewModel
             {
-                Products = productViewModels,
+                Products = products,
                 ProductsCount = totalItems,
                 CurrentCategory = category
             };
@@ -65,7 +57,6 @@ namespace EvaFloraStore.Controllers
             };
             return View(viewModel);
         }
-
 
         public IActionResult Privacy()
         {

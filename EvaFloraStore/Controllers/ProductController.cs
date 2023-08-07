@@ -5,8 +5,6 @@ using EvaFloraStore.Repositories.Db;
 using EvaFloraStore.Repositories.Image;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Core.Types;
 
 namespace EvaFloraStore.Controllers
 {

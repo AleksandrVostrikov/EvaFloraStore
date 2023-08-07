@@ -2,35 +2,32 @@
 @{
 }
 
-<div class="card mb-3  d-flex product-card">
-    <div class="card-img-top">
-        <img src="@Url.Content("~/"+Model.ImageUrl)" alt="@Model.Name" class="w-100">
-    </div>
+<link href="~/css/ProductCard.css" rel="stylesheet">
+<div class="card">
+    <img src="@Url.Content("~/"+Model.ImageUrl)" alt="@Model.Name" class="card-img" />
     <div class="card-body">
         <div class="row">
-            <div class="col-6">
+            <div class="col-8">
                 <h4 class="card-title">@Model.Name</h4>
             </div>
-            <div class="col-6">
-                <a asp-action="ProductDetails" 
-                   asp-controller="Home" 
-                   asp-route-id="@Model.Id"
-                   asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"
-                   class="btn btn-outline-secondary btn-sm float-end">Подробнее</a>
+            <div class="col-4">
+                <p class="current-price">
+                    @Model.Price.ToString() руб.
+                </p>
             </div>
         </div>
-        <p class="card-text">@Model.ShortDescription</p>
-        <div class="row">
-            <div class="col-6">
-                <span class="badge bg-primary">
-                    <small>@Model.Price.ToString() руб.</small>
-                </span>
-            </div>
-            <div class="col-6">
-                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"
-                   class="btn btn-dark btn-sm float-end mt-3">В корзину</a>
-            </div>
-        </div>
+
+        <p class="card-short">@Model.ShortDescription</p>
+        <p class="card-description">@Html.Raw(Model.Description)</p>
+
+        <a asp-action="AddToCart"
+           asp-controller="Cart"
+           asp-route-id="@Model.Id"
+           asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"
+           class="btn btn-dark btn-sm float-end mt-3 mx-auto addToCart" style="width:10vw; height:5vh;">В корзину</a>
     </div>
 </div>
+
+
+
 

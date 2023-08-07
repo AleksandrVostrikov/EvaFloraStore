@@ -19,8 +19,14 @@ html {
 
 body {
     margin-bottom: 60px;
-    /*background-image: url("/kandinsky.png");
-    background-size: cover;*/
+    background-color: #f1da8d;
+    background-image: url('/back (2).jpg');
+}
+
+@font-face {
+    font-family: 'MyFont';
+    src: url('/DancingScript-Regular.ttf');
+    
 }
 
 .table-custom {
@@ -61,17 +67,12 @@ body {
     padding: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.product-card {
-    border-radius: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-    .product-card .card-img-top img {
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-    }
-.productDetailImage img {
-    border-radius: 15px;
-}
+
+
+
+
+
+
 
 
 

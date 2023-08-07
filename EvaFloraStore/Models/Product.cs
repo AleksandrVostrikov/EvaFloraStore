@@ -8,12 +8,12 @@ namespace EvaFloraStore.Models
     {
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Укажите название товара")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         [Required(ErrorMessage = "Добавьте описание товара")]
         public string Description { get; set; } = "Описания пока нет";
 
         [Required(ErrorMessage = "Добавьте описание товара")]
-        public string ShortDescription { get; set; }
+        public string? ShortDescription { get; set; }
 
         [Required(ErrorMessage = "Выберите категорию")]
 
